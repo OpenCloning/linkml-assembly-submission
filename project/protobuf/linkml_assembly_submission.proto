@@ -1,0 +1,30 @@
+ syntax="proto3";
+ package
+// metamodel_version: 1.7.0
+message Category
+ {
+  string id = 0
+  string title = 0
+  string description = 0
+  string image = 0
+ }
+message Kit
+ {
+  pMIDIdentifier pmid = 0
+  httpsIdentifier addgeneUrl = 0
+ }
+message Sequence
+ {
+  string plasmidName = 0
+  integer addgeneId = 0
+  category category = 0
+  string resistance = 0
+  string well = 0
+  string description = 0
+ }
+message Submitter
+ {
+  string fullName = 0
+  orcidIdentifier orcid = 0
+  string githubUsername = 0
+ }

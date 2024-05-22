@@ -1,0 +1,18 @@
+id	title	description	image
+1	Assembly connector		glyph_1.png
+2	Promoter		glyph_2.png
+3	Coding sequence		glyph_3.png
+3a	N-term tag	???	glyph_3.png
+3b	C-term tag	???	glyph_3.png
+234r	Assembled something		
+234	Assembled something 2		
+4	Terminator		glyph_4.png
+4a	Terminator-a	???	glyph_4.png
+4b	Terminator-b	???	glyph_4.png
+5	Assembly connector		glyph_5.png
+6	Yeast marker		glyph_6.png
+7	Yeast origin		glyph_7.png
+8	Bacterial marker and origin		glyph_8.png
+8a	Something-else1	??	glyph_8.png
+8b	Something-else2	??	glyph_8.png
+678	Something-else3	??	

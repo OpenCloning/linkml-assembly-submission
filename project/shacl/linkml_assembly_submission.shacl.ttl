@@ -1,0 +1,108 @@
+@prefix linkml_assembly_submission: <https://w3id.org/genestorian/linkml-assembly-submission/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+linkml_assembly_submission:Kit a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The Addgene URL for the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path linkml_assembly_submission:addgene_url ],
+        [ sh:description "The PubMed ID for the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path linkml_assembly_submission:pmid ] ;
+    sh:targetClass linkml_assembly_submission:Kit .
+
+linkml_assembly_submission:Sequence a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The well where a plasmid is located in a plate" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path linkml_assembly_submission:well ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path linkml_assembly_submission:resistance ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path linkml_assembly_submission:addgene_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "A description of the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path linkml_assembly_submission:description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path linkml_assembly_submission:plasmid_name ],
+        [ sh:class linkml_assembly_submission:Category ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path linkml_assembly_submission:category ] ;
+    sh:targetClass linkml_assembly_submission:Sequence .
+
+linkml_assembly_submission:Submitter a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The ORCID of the submitter" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path linkml_assembly_submission:orcid ],
+        [ sh:datatype xsd:string ;
+            sh:description "The full name of the submitter, will be ignored if the name can be taken from ORCID" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path linkml_assembly_submission:full_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The GitHub username of the submitter" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path linkml_assembly_submission:github_username ] ;
+    sh:targetClass linkml_assembly_submission:Submitter .
+
+linkml_assembly_submission:Category a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "A title for the representation of the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path linkml_assembly_submission:title ],
+        [ sh:datatype xsd:string ;
+            sh:description "Path to an image of the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path linkml_assembly_submission:image ],
+        [ sh:datatype xsd:string ;
+            sh:description "The identifier for the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path linkml_assembly_submission:id ],
+        [ sh:datatype xsd:string ;
+            sh:description "A description of the object" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path linkml_assembly_submission:description ] ;
+    sh:targetClass linkml_assembly_submission:Category .
+

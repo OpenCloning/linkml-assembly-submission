@@ -1,0 +1,8 @@
+{
+   "PATO": "http://purl.obolibrary.org/obo/PATO_",
+   "biolink": "https://w3id.org/biolink/",
+   "example": "https://example.org/",
+   "linkml": "https://w3id.org/linkml/",
+   "linkml_assembly_submission": "https://w3id.org/genestorian/linkml-assembly-submission/",
+   "schema": "http://schema.org/"
+}

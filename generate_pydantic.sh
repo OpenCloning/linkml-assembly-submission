@@ -1,0 +1,1 @@
+gen-pydantic src/linkml_assembly_submission/schema/linkml_assembly_submission.yaml > dummy.py

@@ -1,0 +1,108 @@
+{
+    "$defs": {
+        "Category": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "description": {
+                    "description": "A description of the object",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "The identifier for the object",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "Path to an image of the object",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "A title for the representation of the object",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Category",
+            "type": "object"
+        },
+        "Kit": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "addgene_url": {
+                    "description": "The Addgene URL for the object",
+                    "type": "string"
+                },
+                "pmid": {
+                    "description": "The PubMed ID for the object",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pmid"
+            ],
+            "title": "Kit",
+            "type": "object"
+        },
+        "Sequence": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "addgene_id": {
+                    "type": "integer"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A description of the object",
+                    "type": "string"
+                },
+                "plasmid_name": {
+                    "type": "string"
+                },
+                "resistance": {
+                    "type": "string"
+                },
+                "well": {
+                    "description": "The well where a plasmid is located in a plate",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "addgene_id"
+            ],
+            "title": "Sequence",
+            "type": "object"
+        },
+        "Submitter": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "full_name": {
+                    "description": "The full name of the submitter, will be ignored if the name can be taken from ORCID",
+                    "type": "string"
+                },
+                "github_username": {
+                    "description": "The GitHub username of the submitter",
+                    "type": "string"
+                },
+                "orcid": {
+                    "description": "The ORCID of the submitter",
+                    "type": "string"
+                }
+            },
+            "title": "Submitter",
+            "type": "object"
+        }
+    },
+    "$id": "https://w3id.org/genestorian/linkml-assembly-submission",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "linkml-assembly-submission",
+    "type": "object",
+    "version": null
+}

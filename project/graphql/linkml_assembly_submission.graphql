@@ -1,0 +1,32 @@
+# metamodel_version: 1.7.0
+type Category
+  {
+    id: String!
+    title: String
+    description: String
+    image: String
+  }
+
+type Kit
+  {
+    pmid: PMIDIdentifier!
+    addgeneUrl: HttpsIdentifier
+  }
+
+type Sequence
+  {
+    plasmidName: String
+    addgeneId: Integer!
+    category: Category
+    resistance: String
+    well: String
+    description: String
+  }
+
+type Submitter
+  {
+    fullName: String
+    orcid: OrcidIdentifier
+    githubUsername: String
+  }
+

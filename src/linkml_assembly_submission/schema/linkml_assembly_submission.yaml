@@ -1,0 +1,174 @@
+---
+id: https://w3id.org/genestorian/linkml-assembly-submission
+name: linkml-assembly-submission
+title: linkml-assembly-submission
+description: |-
+  A linkml model for submissions of assemblies for ShareYourCloning templates
+license: MIT
+see_also:
+  - https://genestorian.github.io/linkml-assembly-submission
+
+prefixes:
+  linkml_assembly_submission: https://w3id.org/genestorian/linkml-assembly-submission/
+  linkml: https://w3id.org/linkml/
+  biolink: https://w3id.org/biolink/
+  schema: http://schema.org/
+  PATO: http://purl.obolibrary.org/obo/PATO_
+  example: https://example.org/
+default_prefix: linkml_assembly_submission
+default_range: string
+
+imports:
+  - linkml:types
+
+types:
+  PMID identifier:
+    typeof: string
+    id_prefixes:
+      - PMID
+  https identifier:
+    typeof: string
+    id_prefixes:
+      - https
+  orcid identifier:
+    typeof: string
+    id_prefixes:
+      - ORCID
+
+slots:
+  id:
+    identifier: true
+    range: string
+    description: >-
+      The identifier for the object
+  title:
+    range: string
+    description: >-
+      A title for the representation of the object
+  description:
+    range: string
+    description: >-
+      A description of the object
+  image:
+    range: string
+    description: >-
+      Path to an image of the object
+  pmid:
+    identifier: true
+    range: PMID identifier
+    description: >-
+      The PubMed ID for the object
+    examples:
+      - value: PMID:123456
+  addgene_url:
+    range: https identifier
+    description: >-
+      The Addgene URL for the object
+  plasmid_name:
+    range: string
+  addgene_id:
+    range: string
+    identifier: true
+    description: >-
+      The Addgene ID for the plasmid
+    pattern: ^\d+$
+  category:
+    range: Category
+  resistance:
+    range: string
+  well:
+    range: string
+    description: >-
+      The well where a plasmid is located in a plate
+  full_name:
+    range: string
+    description: >-
+      The full name of the submitter, will be ignored if
+      the name can be taken from ORCID
+
+  orcid:
+    range: orcid identifier
+    description: >-
+      The ORCID of the submitter
+
+  github_username:
+    range: string
+    description: >-
+      The GitHub username of the submitter
+
+classes:
+  Category:
+    slots:
+      - id
+      - title
+      - description
+      - image
+  Kit:
+    slots:
+      - pmid
+      - addgene_url
+    unique_keys:
+      addgene_url_key:
+        unique_key_name: addgene_url_key
+        unique_key_slots:
+          - addgene_url
+  Sequence:
+    slots:
+      - plasmid_name
+      - addgene_id
+      - category
+      - resistance
+      - well
+      - description
+    unique_keys:
+      addgene_id_key:
+        unique_key_name: addgene_id_key
+        unique_key_slots:
+          - addgene_id
+
+  Submitter:
+    slots:
+      - full_name
+      - orcid
+      - github_username
+    unique_keys:
+      orcid_key:
+        unique_key_name: orcid_key
+        unique_key_slots:
+          - orcid
+      github_username_key:
+        unique_key_name: github_username_key
+        unique_key_slots:
+          - github_username
+
+  Assembly:
+    slots:
+      - title
+      - description
+    attributes:
+      fragment_order:
+        range: Category
+        multivalued: true
+
+  Submission:
+    tree_root: true
+    attributes:
+      submitters:
+        range: Submitter
+        multivalued: true
+        inlined_as_list: true
+      kit:
+        range: Kit
+        inlined: true
+      sequences:
+        range: Sequence
+        multivalued: true
+        inlined_as_list: true
+      categories:
+        range: Category
+        multivalued: true
+        inlined_as_list: true
+      assemblies:
+        range: Assembly
+        multivalued: true
+        inlined_as_list: true

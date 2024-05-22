@@ -1,0 +1,27 @@
+{
+  "template": "https://github.com/linkml/linkml-project-cookiecutter",
+  "commit": "d9b85bbbdcc49163416a3e3e18e23fe2ecce501b",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "linkml-assembly-submission",
+      "__project_slug": "linkml_assembly_submission",
+      "github_org": "genestorian",
+      "__source_path": "src/linkml_assembly_submission/schema/linkml_assembly_submission.yaml",
+      "project_description": "A linkml model for submissions of assemblies for ShareYourCloning templates",
+      "full_name": "Manuel Lera-Ramirez",
+      "email": "manuel.lera-ramirez@ucl.ac.uk",
+      "__author": "Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>",
+      "license": "MIT",
+      "main_schema_class": "Person",
+      "create_python_classes": "No",
+      "use_schemasheets": "No",
+      "google_sheet_id": "1wVoaiFg47aT9YWNeRfTZ8tYHN8s8PAuDx5i2HUcDpvQ",
+      "google_sheet_tabs": "personinfo enums",
+      "__google_sheet_module": "personinfo_enums",
+      "github_token_for_pypi_deployment": "PYPI_PASSWORD",
+      "_template": "https://github.com/linkml/linkml-project-cookiecutter"
+    }
+  },
+  "directory": null
+}

@@ -1,0 +1,281 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix linkml_assembly_submission: <https://w3id.org/genestorian/linkml-assembly-submission/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+linkml_assembly_submission:Kit a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "Kit" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:addgene_url ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml_assembly_submission:PMID_identifier ;
+            owl:onProperty linkml_assembly_submission:pmid ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml_assembly_submission:https_identifier ;
+            owl:onProperty linkml_assembly_submission:addgene_url ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:pmid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:pmid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:addgene_url ] ;
+    owl:hasKey ( linkml_assembly_submission:addgene_url ) ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:Sequence a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "Sequence" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:resistance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:category ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:well ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:well ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml_assembly_submission:Category ;
+            owl:onProperty linkml_assembly_submission:category ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:plasmid_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:plasmid_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Integer ;
+            owl:onProperty linkml_assembly_submission:addgene_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:plasmid_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:resistance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:addgene_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:addgene_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:resistance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:well ] ;
+    owl:hasKey ( linkml_assembly_submission:addgene_id ) ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:Submitter a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "Submitter" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:full_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:github_username ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:full_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:orcid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:orcid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:github_username ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:full_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml_assembly_submission:orcid_identifier ;
+            owl:onProperty linkml_assembly_submission:orcid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:github_username ] ;
+    owl:hasKey ( linkml_assembly_submission:orcid ),
+        ( linkml_assembly_submission:github_username ) ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:Category a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "Category" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:title ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:image ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:image ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty linkml_assembly_submission:image ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty linkml_assembly_submission:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty linkml_assembly_submission:description ] ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:PMID_identifier a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:subClassOf linkml:String .
+
+linkml_assembly_submission:https_identifier a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:subClassOf linkml:String .
+
+linkml_assembly_submission:orcid_identifier a owl:Class,
+        linkml:TypeDefinition ;
+    rdfs:subClassOf linkml:String .
+
+linkml_assembly_submission:category a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "category" ;
+    rdfs:range linkml_assembly_submission:Category ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:full_name a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "full_name" ;
+    rdfs:range linkml:String ;
+    skos:definition "The full name of the submitter, will be ignored if the name can be taken from ORCID" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:id a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "id" ;
+    rdfs:range linkml:String ;
+    skos:definition "The identifier for the object" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:image a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "image" ;
+    rdfs:range linkml:String ;
+    skos:definition "Path to an image of the object" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:plasmid_name a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "plasmid_name" ;
+    rdfs:range linkml:String ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:pmid a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "pmid" ;
+    rdfs:range linkml_assembly_submission:PMID_identifier ;
+    skos:definition "The PubMed ID for the object" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:resistance a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "resistance" ;
+    rdfs:range linkml:String ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:title a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "title" ;
+    rdfs:range linkml:String ;
+    skos:definition "A title for the representation of the object" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:well a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "well" ;
+    rdfs:range linkml:String ;
+    skos:definition "The well where a plasmid is located in a plate" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:addgene_id a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "addgene_id" ;
+    rdfs:range linkml:Integer ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:addgene_url a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "addgene_url" ;
+    rdfs:range linkml_assembly_submission:https_identifier ;
+    skos:definition "The Addgene URL for the object" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:github_username a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "github_username" ;
+    rdfs:range linkml:String ;
+    skos:definition "The GitHub username of the submitter" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:orcid a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "orcid" ;
+    rdfs:range linkml_assembly_submission:orcid_identifier ;
+    skos:definition "The ORCID of the submitter" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+linkml_assembly_submission:description a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "description" ;
+    rdfs:range linkml:String ;
+    skos:definition "A description of the object" ;
+    skos:inScheme <https://w3id.org/genestorian/linkml-assembly-submission> .
+
+<https://w3id.org/genestorian/linkml-assembly-submission> a owl:Ontology ;
+    rdfs:label "linkml-assembly-submission" ;
+    dcterms:license "MIT" ;
+    dcterms:title "linkml-assembly-submission" ;
+    rdfs:seeAlso <https://genestorian.github.io/linkml-assembly-submission> ;
+    skos:definition "A linkml model for submissions of assemblies for ShareYourCloning templates" .
+
