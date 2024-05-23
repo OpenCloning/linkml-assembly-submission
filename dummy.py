@@ -48,20 +48,56 @@ class ConfiguredBaseModel(BaseModel):
 
 class Category(ConfiguredBaseModel):
     id: str = Field(..., description="""The identifier for the object""")
-    title: Optional[str] = Field(None, description="""A title for the representation of the object""")
+    title: str = Field(..., description="""A title for the representation of the object""")
     description: Optional[str] = Field(None, description="""A description of the object""")
-    image: Optional[str] = Field(None, description="""Path to an image of the object""")
+    image: Optional[str] = Field(None, description="""File name of an image for the object""")
+
+    @field_validator('image')
+    def pattern_image(cls, v):
+        pattern=re.compile(r"^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|gif|svg)$")
+        if isinstance(v,list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid image format: {element}")
+        elif isinstance(v,str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid image format: {v}")
+        return v
 
 
 class Kit(ConfiguredBaseModel):
     pmid: str = Field(..., description="""The PubMed ID for the object""")
-    addgene_url: Optional[str] = Field(None, description="""The Addgene URL for the object""")
+    addgene_url: Optional[str] = Field(None, description="""The Addgene URL for the kit""")
+
+    @field_validator('pmid')
+    def pattern_pmid(cls, v):
+        pattern=re.compile(r"^PMID:\d+$")
+        if isinstance(v,list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid pmid format: {element}")
+        elif isinstance(v,str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid pmid format: {v}")
+        return v
+
+    @field_validator('addgene_url')
+    def pattern_addgene_url(cls, v):
+        pattern=re.compile(r"^https://www.addgene.org/.+$")
+        if isinstance(v,list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid addgene_url format: {element}")
+        elif isinstance(v,str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid addgene_url format: {v}")
+        return v
 
 
 class Sequence(ConfiguredBaseModel):
     plasmid_name: Optional[str] = Field(None)
-    addgene_id: str = Field(..., description="""The Addgene ID for the plasmid""")
-    category: Optional[str] = Field(None)
+    addgene_id: int = Field(..., description="""The Addgene ID for the plasmid""")
+    category: str = Field(...)
     resistance: Optional[str] = Field(None)
     well: Optional[str] = Field(None, description="""The well where a plasmid is located in a plate""")
     description: Optional[str] = Field(None, description="""A description of the object""")
@@ -80,13 +116,37 @@ class Sequence(ConfiguredBaseModel):
 
 
 class Submitter(ConfiguredBaseModel):
-    full_name: Optional[str] = Field(None, description="""The full name of the submitter, will be ignored if the name can be taken from ORCID""")
+    full_name: str = Field(..., description="""The full name of the submitter, will be ignored if the name can be taken from ORCID""")
     orcid: Optional[str] = Field(None, description="""The ORCID of the submitter""")
     github_username: Optional[str] = Field(None, description="""The GitHub username of the submitter""")
 
+    @field_validator('orcid')
+    def pattern_orcid(cls, v):
+        pattern=re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
+        if isinstance(v,list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid orcid format: {element}")
+        elif isinstance(v,str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid orcid format: {v}")
+        return v
+
+    @field_validator('github_username')
+    def pattern_github_username(cls, v):
+        pattern=re.compile(r"^[a-zA-Z0-9-]+$")
+        if isinstance(v,list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid github_username format: {element}")
+        elif isinstance(v,str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid github_username format: {v}")
+        return v
+
 
 class Assembly(ConfiguredBaseModel):
-    title: Optional[str] = Field(None, description="""A title for the representation of the object""")
+    title: str = Field(..., description="""A title for the representation of the object""")
     description: Optional[str] = Field(None, description="""A description of the object""")
     fragment_order: Optional[List[str]] = Field(default_factory=list)
 

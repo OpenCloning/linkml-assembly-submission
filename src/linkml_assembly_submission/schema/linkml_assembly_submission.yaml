@@ -41,10 +41,12 @@ slots:
     range: string
     description: >-
       The identifier for the object
+    required: true
   title:
     range: string
     description: >-
       A title for the representation of the object
+    required: true
   description:
     range: string
     description: >-
@@ -52,7 +54,8 @@ slots:
   image:
     range: string
     description: >-
-      Path to an image of the object
+      File name of an image for the object
+    pattern: ^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|gif|svg)$
   pmid:
     identifier: true
     range: PMID identifier
@@ -60,10 +63,13 @@ slots:
       The PubMed ID for the object
     examples:
       - value: PMID:123456
+    pattern: ^PMID:\d+$
+    required: true
   addgene_url:
     range: https identifier
     description: >-
-      The Addgene URL for the object
+      The Addgene URL for the kit
+    pattern: ^https://www.addgene.org/.+$
   plasmid_name:
     range: string
   addgene_id:
@@ -74,6 +80,7 @@ slots:
     pattern: ^\d+$
   category:
     range: Category
+    required: true
   resistance:
     range: string
   well:
@@ -85,16 +92,20 @@ slots:
     description: >-
       The full name of the submitter, will be ignored if
       the name can be taken from ORCID
+    required: true
 
   orcid:
     range: orcid identifier
     description: >-
       The ORCID of the submitter
+    pattern: ^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$
 
   github_username:
     range: string
     description: >-
       The GitHub username of the submitter
+    # alphanumeric characters and dashes ( - )
+    pattern: ^[a-zA-Z0-9-]+$
 
 classes:
   Category:

@@ -768,19 +768,19 @@
     {
       "id": "1",
       "title": "Assembly connector",
-      "description": "",
+      "description": null,
       "image": "glyph_1.png"
     },
     {
       "id": "2",
       "title": "Promoter",
-      "description": "",
+      "description": null,
       "image": "glyph_2.png"
     },
     {
       "id": "3",
       "title": "Coding sequence",
-      "description": "",
+      "description": null,
       "image": "glyph_3.png"
     },
     {
@@ -798,19 +798,19 @@
     {
       "id": "234r",
       "title": "Assembled something",
-      "description": "",
-      "image": ""
+      "description": null,
+      "image": null
     },
     {
       "id": "234",
       "title": "Assembled something 2",
-      "description": "",
-      "image": ""
+      "description": null,
+      "image": null
     },
     {
       "id": "4",
       "title": "Terminator",
-      "description": "",
+      "description": null,
       "image": "glyph_4.png"
     },
     {
@@ -828,25 +828,25 @@
     {
       "id": "5",
       "title": "Assembly connector",
-      "description": "",
+      "description": null,
       "image": "glyph_5.png"
     },
     {
       "id": "6",
       "title": "Yeast marker",
-      "description": "",
+      "description": null,
       "image": "glyph_6.png"
     },
     {
       "id": "7",
       "title": "Yeast origin",
-      "description": "",
+      "description": null,
       "image": "glyph_7.png"
     },
     {
       "id": "8",
       "title": "Bacterial marker and origin",
-      "description": "",
+      "description": null,
       "image": "glyph_8.png"
     },
     {
@@ -865,7 +865,7 @@
       "id": "678",
       "title": "Something-else3",
       "description": "??",
-      "image": ""
+      "image": null
     }
   ],
   "assemblies": [

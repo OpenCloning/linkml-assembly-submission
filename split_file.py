@@ -5,8 +5,20 @@ from dummy import (
     Category as _Category,
     Assembly as _Assembly,
 )
-import json
+
+
 from pydantic import ConfigDict
+import numpy as np
+from linkml_runtime.loaders import (
+    CSVLoader,
+    JSONLoader,
+    RDFLibLoader,
+    TSVLoader,
+    YAMLLoader,
+)
+from linkml_runtime import SchemaView
+from pydantic import BaseModel
+import json
 
 # TODO: validation of categories in sequences and assemblies
 # TODO: validate images
@@ -134,20 +146,14 @@ class Submission(_Submission):
         ]
 
 
-def parse_fragment_order(fragment_order: str) -> list[str]:
-    """Split the list by |, remove empty list elements from the end of the list only"""
-    splitted = fragment_order.split("|")
-    while splitted and not splitted[-1]:
-        splitted.pop()
-    return splitted
-
-
 def sheet_reader(sheet_name):
-    data = read_excel("test_join.xlsx", sheet_name=sheet_name, dtype=str).fillna("")
-    if sheet_name == "Assembly":
-        data["fragment_order"] = data["fragment_order"].apply(parse_fragment_order)
 
-    return data.to_dict("records")
+    return (
+        read_excel("test_join.xlsx", sheet_name=sheet_name, dtype=str)
+        .fillna(np.nan)
+        .replace([np.nan], [None])
+        # .to_dict("records")
+    )
 
 
 sequences = sheet_reader("Sequence")
@@ -155,15 +161,8 @@ categories = sheet_reader("Category")
 kits = sheet_reader("Kit")
 submitters = sheet_reader("Submitter")
 assemblies = sheet_reader("Assembly")
+submitters = sheet_reader("Submitter")
 
-submitters = (
-    read_excel("test_join.xlsx", sheet_name="Submitter", dtype=str)
-    .fillna("")
-    .to_dict("records")
-)
-
-if len(kits) != 1:
-    raise ValueError("Expected 1 kit, got {}".format(len(kits)))
 
 submission = Submission.model_validate(
     {
@@ -182,3 +181,24 @@ with open("submission.json", "w") as f:
 for i, template in enumerate(submission.to_template_list()):
     with open(f"templates/template_{i}.json", "w") as f:
         json.dump(template, f, indent=2)
+
+# schema_view = SchemaView(
+#     "src/linkml_assembly_submission/schema/linkml_assembly_submission.yaml"
+# )
+
+# Get type of fields in Sequence model
+# print(Sequence.model_fields["category"].annotation)
+
+# class SequenceContainer(BaseModel):
+#     sequences: list[Sequence]
+
+
+# if len(kits) != 1:
+#     raise ValueError("Expected 1 kit, got {}".format(len(kits)))
+# loader = TSVLoader()
+
+# sequences.to_csv("blah.tsv", sep="\t")
+
+# loader.load(
+#     "blah.tsv", SequenceContainer, schemaview=schema_view, index_slot="sequences"
+# )

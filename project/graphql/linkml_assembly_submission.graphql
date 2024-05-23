@@ -1,8 +1,15 @@
 # metamodel_version: 1.7.0
+type Assembly
+  {
+    title: String!
+    description: String
+    fragmentOrder: [Category]
+  }
+
 type Category
   {
     id: String!
-    title: String
+    title: String!
     description: String
     image: String
   }
@@ -16,16 +23,25 @@ type Kit
 type Sequence
   {
     plasmidName: String
-    addgeneId: Integer!
-    category: Category
+    addgeneId: String!
+    category: Category!
     resistance: String
     well: String
     description: String
   }
 
+type Submission
+  {
+    submitters: [Submitter]
+    kit: Kit
+    sequences: [Sequence]
+    categories: [Category]
+    assemblies: [Assembly]
+  }
+
 type Submitter
   {
-    fullName: String
+    fullName: String!
     orcid: OrcidIdentifier
     githubUsername: String
   }

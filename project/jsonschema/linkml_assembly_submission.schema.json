@@ -1,5 +1,30 @@
 {
     "$defs": {
+        "Assembly": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "description": {
+                    "description": "A description of the object",
+                    "type": "string"
+                },
+                "fragment_order": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "title": {
+                    "description": "A title for the representation of the object",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "title"
+            ],
+            "title": "Assembly",
+            "type": "object"
+        },
         "Category": {
             "additionalProperties": false,
             "description": "",
@@ -13,7 +38,8 @@
                     "type": "string"
                 },
                 "image": {
-                    "description": "Path to an image of the object",
+                    "description": "File name of an image for the object",
+                    "pattern": "^[a-zA-Z0-9_\\-\\.]+\\.(png|jpg|jpeg|gif|svg)$",
                     "type": "string"
                 },
                 "title": {
@@ -22,7 +48,8 @@
                 }
             },
             "required": [
-                "id"
+                "id",
+                "title"
             ],
             "title": "Category",
             "type": "object"
@@ -32,11 +59,13 @@
             "description": "",
             "properties": {
                 "addgene_url": {
-                    "description": "The Addgene URL for the object",
+                    "description": "The Addgene URL for the kit",
+                    "pattern": "^https://www.addgene.org/.+$",
                     "type": "string"
                 },
                 "pmid": {
                     "description": "The PubMed ID for the object",
+                    "pattern": "^PMID:\\d+$",
                     "type": "string"
                 }
             },
@@ -51,7 +80,9 @@
             "description": "",
             "properties": {
                 "addgene_id": {
-                    "type": "integer"
+                    "description": "The Addgene ID for the plasmid",
+                    "pattern": "^\\d+$",
+                    "type": "string"
                 },
                 "category": {
                     "type": "string"
@@ -72,9 +103,45 @@
                 }
             },
             "required": [
-                "addgene_id"
+                "addgene_id",
+                "category"
             ],
             "title": "Sequence",
+            "type": "object"
+        },
+        "Submission": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "assemblies": {
+                    "items": {
+                        "$ref": "#/$defs/Assembly"
+                    },
+                    "type": "array"
+                },
+                "categories": {
+                    "items": {
+                        "$ref": "#/$defs/Category"
+                    },
+                    "type": "array"
+                },
+                "kit": {
+                    "$ref": "#/$defs/Kit"
+                },
+                "sequences": {
+                    "items": {
+                        "$ref": "#/$defs/Sequence"
+                    },
+                    "type": "array"
+                },
+                "submitters": {
+                    "items": {
+                        "$ref": "#/$defs/Submitter"
+                    },
+                    "type": "array"
+                }
+            },
+            "title": "Submission",
             "type": "object"
         },
         "Submitter": {
@@ -87,13 +154,18 @@
                 },
                 "github_username": {
                     "description": "The GitHub username of the submitter",
+                    "pattern": "^[a-zA-Z0-9-]+$",
                     "type": "string"
                 },
                 "orcid": {
                     "description": "The ORCID of the submitter",
+                    "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$",
                     "type": "string"
                 }
             },
+            "required": [
+                "full_name"
+            ],
             "title": "Submitter",
             "type": "object"
         }
@@ -101,7 +173,37 @@
     "$id": "https://w3id.org/genestorian/linkml-assembly-submission",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
+    "description": "",
     "metamodel_version": "1.7.0",
+    "properties": {
+        "assemblies": {
+            "items": {
+                "$ref": "#/$defs/Assembly"
+            },
+            "type": "array"
+        },
+        "categories": {
+            "items": {
+                "$ref": "#/$defs/Category"
+            },
+            "type": "array"
+        },
+        "kit": {
+            "$ref": "#/$defs/Kit"
+        },
+        "sequences": {
+            "items": {
+                "$ref": "#/$defs/Sequence"
+            },
+            "type": "array"
+        },
+        "submitters": {
+            "items": {
+                "$ref": "#/$defs/Submitter"
+            },
+            "type": "array"
+        }
+    },
     "title": "linkml-assembly-submission",
     "type": "object",
     "version": null

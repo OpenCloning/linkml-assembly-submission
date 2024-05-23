@@ -49,8 +49,17 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
+<Assembly> CLOSED {
+    (  $<Assembly_tes> (  <title> @linkml:String ;
+          <description> @linkml:String ? ;
+          <fragment_order> @<Category> *
+       ) ;
+       rdf:type [ <Assembly> ] ?
+    )
+}
+
 <Category> CLOSED {
-    (  $<Category_tes> (  <title> @linkml:String ? ;
+    (  $<Category_tes> (  <title> @linkml:String ;
           <description> @linkml:String ? ;
           <image> @linkml:String ?
        ) ;
@@ -66,7 +75,7 @@ linkml:Sparqlpath xsd:string
 
 <Sequence> CLOSED {
     (  $<Sequence_tes> (  <plasmid_name> @linkml:String ? ;
-          <category> @<Category> ? ;
+          <category> @<Category> ;
           <resistance> @linkml:String ? ;
           <well> @linkml:String ? ;
           <description> @linkml:String ?
@@ -75,8 +84,19 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<Submission> CLOSED {
+    (  $<Submission_tes> (  <submitters> @<Submitter> * ;
+          <kit> @<Kit> ? ;
+          <sequences> @<Sequence> * ;
+          <categories> @<Category> * ;
+          <assemblies> @<Assembly> *
+       ) ;
+       rdf:type [ <Submission> ] ?
+    )
+}
+
 <Submitter> CLOSED {
-    (  $<Submitter_tes> (  <full_name> @linkml:String ? ;
+    (  $<Submitter_tes> (  <full_name> @linkml:String ;
           <orcid> @<OrcidIdentifier> ? ;
           <github_username> @linkml:String ?
        ) ;
