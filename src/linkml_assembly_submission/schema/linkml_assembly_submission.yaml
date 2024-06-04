@@ -168,18 +168,35 @@ classes:
         range: Submitter
         multivalued: true
         inlined_as_list: true
+        array:
+          dimensions:
+            minimum_cardinality: 1
+        required: true
       kit:
         range: Kit
         inlined: true
+        required: true
       sequences:
         range: Sequence
         multivalued: true
         inlined_as_list: true
+        array:
+          dimensions:
+            minimum_cardinality: 1
+        required: true
       categories:
         range: Category
         multivalued: true
         inlined_as_list: true
+        array:
+          dimensions:
+            minimum_cardinality: 1
+        required: true
       assemblies:
         range: Assembly
         multivalued: true
         inlined_as_list: true
+        array:
+          dimensions:
+            minimum_cardinality: 1
+        required: true

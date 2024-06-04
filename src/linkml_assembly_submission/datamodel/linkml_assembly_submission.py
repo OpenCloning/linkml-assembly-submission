@@ -1,5 +1,5 @@
 # Auto generated from linkml_assembly_submission.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-23T15:02:29
+# Generation date: 2024-06-04T17:37:35
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
@@ -242,24 +242,34 @@ class Submission(YAMLRoot):
     class_name: ClassVar[str] = "Submission"
     class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Submission
 
-    submitters: Optional[Union[Union[dict, Submitter], List[Union[dict, Submitter]]]] = empty_list()
-    kit: Optional[Union[dict, Kit]] = None
-    sequences: Optional[Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]]] = empty_dict()
-    categories: Optional[Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]]] = empty_dict()
-    assemblies: Optional[Union[Union[dict, Assembly], List[Union[dict, Assembly]]]] = empty_list()
+    submitters: Union[Union[dict, Submitter], List[Union[dict, Submitter]]] = None
+    kit: Union[dict, Kit] = None
+    sequences: Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]] = empty_dict()
+    categories: Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]] = empty_dict()
+    assemblies: Union[Union[dict, Assembly], List[Union[dict, Assembly]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.submitters):
+            self.MissingRequiredField("submitters")
         if not isinstance(self.submitters, list):
             self.submitters = [self.submitters] if self.submitters is not None else []
         self.submitters = [v if isinstance(v, Submitter) else Submitter(**as_dict(v)) for v in self.submitters]
 
-        if self.kit is not None and not isinstance(self.kit, Kit):
+        if self._is_empty(self.kit):
+            self.MissingRequiredField("kit")
+        if not isinstance(self.kit, Kit):
             self.kit = Kit(**as_dict(self.kit))
 
+        if self._is_empty(self.sequences):
+            self.MissingRequiredField("sequences")
         self._normalize_inlined_as_list(slot_name="sequences", slot_type=Sequence, key_name="addgene_id", keyed=True)
 
+        if self._is_empty(self.categories):
+            self.MissingRequiredField("categories")
         self._normalize_inlined_as_list(slot_name="categories", slot_type=Category, key_name="id", keyed=True)
 
+        if self._is_empty(self.assemblies):
+            self.MissingRequiredField("assemblies")
         if not isinstance(self.assemblies, list):
             self.assemblies = [self.assemblies] if self.assemblies is not None else []
         self.assemblies = [v if isinstance(v, Assembly) else Assembly(**as_dict(v)) for v in self.assemblies]
@@ -326,16 +336,16 @@ slots.assembly__fragment_order = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.fragment_or
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order, domain=None, range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]])
 
 slots.submission__submitters = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.submitters, name="submission__submitters", curie=LINKML_ASSEMBLY_SUBMISSION.curie('submitters'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__submitters, domain=None, range=Optional[Union[Union[dict, Submitter], List[Union[dict, Submitter]]]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__submitters, domain=None, range=Union[Union[dict, Submitter], List[Union[dict, Submitter]]])
 
 slots.submission__kit = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.kit, name="submission__kit", curie=LINKML_ASSEMBLY_SUBMISSION.curie('kit'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__kit, domain=None, range=Optional[Union[dict, Kit]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__kit, domain=None, range=Union[dict, Kit])
 
 slots.submission__sequences = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequences, name="submission__sequences", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequences'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__sequences, domain=None, range=Optional[Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__sequences, domain=None, range=Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]])
 
 slots.submission__categories = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.categories, name="submission__categories", curie=LINKML_ASSEMBLY_SUBMISSION.curie('categories'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__categories, domain=None, range=Optional[Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__categories, domain=None, range=Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]])
 
 slots.submission__assemblies = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.assemblies, name="submission__assemblies", curie=LINKML_ASSEMBLY_SUBMISSION.curie('assemblies'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Optional[Union[Union[dict, Assembly], List[Union[dict, Assembly]]]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]])

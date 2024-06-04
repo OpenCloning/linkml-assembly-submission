@@ -32,11 +32,11 @@ type Sequence
 
 type Submission
   {
-    submitters: [Submitter]
-    kit: Kit
-    sequences: [Sequence]
-    categories: [Category]
-    assemblies: [Assembly]
+    submitters: [Submitter]!
+    kit: Kit!
+    sequences: [Sequence]!
+    categories: [Category]!
+    assemblies: [Assembly]!
   }
 
 type Submitter

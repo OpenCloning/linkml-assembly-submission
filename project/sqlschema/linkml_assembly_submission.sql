@@ -41,7 +41,7 @@ CREATE TABLE "Kit" (
 );
 CREATE TABLE "Submission" (
 	id INTEGER NOT NULL, 
-	kit_pmid TEXT, 
+	kit_pmid TEXT NOT NULL, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(kit_pmid) REFERENCES "Kit" (pmid)
 );

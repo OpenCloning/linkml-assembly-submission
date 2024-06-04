@@ -141,6 +141,13 @@
                     "type": "array"
                 }
             },
+            "required": [
+                "submitters",
+                "kit",
+                "sequences",
+                "categories",
+                "assemblies"
+            ],
             "title": "Submission",
             "type": "object"
         },
@@ -204,6 +211,13 @@
             "type": "array"
         }
     },
+    "required": [
+        "submitters",
+        "kit",
+        "sequences",
+        "categories",
+        "assemblies"
+    ],
     "title": "linkml-assembly-submission",
     "type": "object",
     "version": null

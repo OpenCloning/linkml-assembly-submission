@@ -85,11 +85,11 @@ linkml:Sparqlpath xsd:string
 }
 
 <Submission> CLOSED {
-    (  $<Submission_tes> (  <submitters> @<Submitter> * ;
-          <kit> @<Kit> ? ;
-          <sequences> @<Sequence> * ;
-          <categories> @<Category> * ;
-          <assemblies> @<Assembly> *
+    (  $<Submission_tes> (  <submitters> @<Submitter> + ;
+          <kit> @<Kit> ;
+          <sequences> @<Sequence> + ;
+          <categories> @<Category> + ;
+          <assemblies> @<Assembly> +
        ) ;
        rdf:type [ <Submission> ] ?
     )

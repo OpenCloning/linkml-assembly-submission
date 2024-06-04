@@ -606,12 +606,22 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/submitters",
       "multivalued": true,
+      "array": {
+        "dimensions": [
+          {
+            "minimum_cardinality": 1,
+            "@type": "DimensionExpression"
+          }
+        ],
+        "@type": "ArrayExpression"
+      },
       "alias": "submitters",
       "owner": "Submission",
       "domain_of": [
         "Submission"
       ],
       "range": "Submitter",
+      "required": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -626,6 +636,7 @@
         "Submission"
       ],
       "range": "Kit",
+      "required": true,
       "inlined": true,
       "@type": "SlotDefinition"
     },
@@ -634,12 +645,22 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/sequences",
       "multivalued": true,
+      "array": {
+        "dimensions": [
+          {
+            "minimum_cardinality": 1,
+            "@type": "DimensionExpression"
+          }
+        ],
+        "@type": "ArrayExpression"
+      },
       "alias": "sequences",
       "owner": "Submission",
       "domain_of": [
         "Submission"
       ],
       "range": "Sequence",
+      "required": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -649,12 +670,22 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/categories",
       "multivalued": true,
+      "array": {
+        "dimensions": [
+          {
+            "minimum_cardinality": 1,
+            "@type": "DimensionExpression"
+          }
+        ],
+        "@type": "ArrayExpression"
+      },
       "alias": "categories",
       "owner": "Submission",
       "domain_of": [
         "Submission"
       ],
       "range": "Category",
+      "required": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -664,12 +695,22 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/assemblies",
       "multivalued": true,
+      "array": {
+        "dimensions": [
+          {
+            "minimum_cardinality": 1,
+            "@type": "DimensionExpression"
+          }
+        ],
+        "@type": "ArrayExpression"
+      },
       "alias": "assemblies",
       "owner": "Submission",
       "domain_of": [
         "Submission"
       ],
       "range": "Assembly",
+      "required": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -802,34 +843,75 @@
         {
           "name": "submitters",
           "multivalued": true,
+          "array": {
+            "dimensions": [
+              {
+                "minimum_cardinality": 1,
+                "@type": "DimensionExpression"
+              }
+            ],
+            "@type": "ArrayExpression"
+          },
           "range": "Submitter",
+          "required": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "kit",
           "range": "Kit",
+          "required": true,
           "inlined": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "sequences",
           "multivalued": true,
+          "array": {
+            "dimensions": [
+              {
+                "minimum_cardinality": 1,
+                "@type": "DimensionExpression"
+              }
+            ],
+            "@type": "ArrayExpression"
+          },
           "range": "Sequence",
+          "required": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "categories",
           "multivalued": true,
+          "array": {
+            "dimensions": [
+              {
+                "minimum_cardinality": 1,
+                "@type": "DimensionExpression"
+              }
+            ],
+            "@type": "ArrayExpression"
+          },
           "range": "Category",
+          "required": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "assemblies",
           "multivalued": true,
+          "array": {
+            "dimensions": [
+              {
+                "minimum_cardinality": 1,
+                "@type": "DimensionExpression"
+              }
+            ],
+            "@type": "ArrayExpression"
+          },
           "range": "Assembly",
+          "required": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         }
@@ -841,9 +923,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "linkml_assembly_submission.yaml",
-  "source_file_date": "2024-05-23T15:00:27",
-  "source_file_size": 4024,
-  "generation_date": "2024-05-23T15:02:29",
+  "source_file_date": "2024-06-04T17:10:48",
+  "source_file_size": 4427,
+  "generation_date": "2024-06-04T17:37:35",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/linkml_assembly_submission.context.jsonld",
