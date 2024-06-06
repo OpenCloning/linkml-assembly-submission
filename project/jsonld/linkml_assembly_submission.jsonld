@@ -409,6 +409,7 @@
       "owner": "Assembly",
       "domain_of": [
         "Category",
+        "Kit",
         "Assembly"
       ],
       "range": "string",
@@ -424,6 +425,7 @@
       "owner": "Assembly",
       "domain_of": [
         "Category",
+        "Kit",
         "Sequence",
         "Assembly"
       ],
@@ -477,6 +479,7 @@
         "Kit"
       ],
       "range": "https_identifier",
+      "required": true,
       "pattern": "^https://www.addgene.org/.+$",
       "@type": "SlotDefinition"
     },
@@ -602,6 +605,19 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "assembly__template_file",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/template_file",
+      "alias": "template_file",
+      "owner": "Assembly",
+      "domain_of": [
+        "Assembly"
+      ],
+      "range": "string",
+      "pattern": "^.*.json$",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "submission__submitters",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/submitters",
@@ -714,6 +730,25 @@
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
+    },
+    {
+      "name": "Kit_description",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/description",
+      "description": "A description of the object",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "is_a": "description",
+      "domain": "Kit",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/description",
+      "alias": "description",
+      "owner": "Kit",
+      "domain_of": [
+        "Kit"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "description",
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
     }
   ],
   "classes": [
@@ -737,7 +772,9 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slots": [
         "pmid",
-        "addgene_url"
+        "addgene_url",
+        "title",
+        "Kit_description"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Kit",
@@ -813,7 +850,8 @@
       "slots": [
         "title",
         "description",
-        "assembly__fragment_order"
+        "assembly__fragment_order",
+        "assembly__template_file"
       ],
       "slot_usage": {},
       "attributes": [
@@ -821,6 +859,12 @@
           "name": "fragment_order",
           "multivalued": true,
           "range": "Category",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "template_file",
+          "range": "string",
+          "pattern": "^.*.json$",
           "@type": "SlotDefinition"
         }
       ],
@@ -923,9 +967,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "linkml_assembly_submission.yaml",
-  "source_file_date": "2024-06-04T17:10:48",
-  "source_file_size": 4427,
-  "generation_date": "2024-06-04T17:37:35",
+  "source_file_date": "2024-06-06T14:06:37",
+  "source_file_size": 4608,
+  "generation_date": "2024-06-06T14:07:23",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/linkml_assembly_submission.context.jsonld",

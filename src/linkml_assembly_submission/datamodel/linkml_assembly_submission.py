@@ -1,5 +1,5 @@
 # Auto generated from linkml_assembly_submission.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-06-04T17:37:35
+# Generation date: 2024-06-06T14:07:23
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
@@ -120,7 +120,9 @@ class Kit(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Kit
 
     pmid: Union[str, KitPmid] = None
-    addgene_url: Optional[Union[str, HttpsIdentifier]] = None
+    addgene_url: Union[str, HttpsIdentifier] = None
+    title: str = None
+    description: str = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.pmid):
@@ -128,8 +130,20 @@ class Kit(YAMLRoot):
         if not isinstance(self.pmid, KitPmid):
             self.pmid = KitPmid(self.pmid)
 
-        if self.addgene_url is not None and not isinstance(self.addgene_url, HttpsIdentifier):
+        if self._is_empty(self.addgene_url):
+            self.MissingRequiredField("addgene_url")
+        if not isinstance(self.addgene_url, HttpsIdentifier):
             self.addgene_url = HttpsIdentifier(self.addgene_url)
+
+        if self._is_empty(self.title):
+            self.MissingRequiredField("title")
+        if not isinstance(self.title, str):
+            self.title = str(self.title)
+
+        if self._is_empty(self.description):
+            self.MissingRequiredField("description")
+        if not isinstance(self.description, str):
+            self.description = str(self.description)
 
         super().__post_init__(**kwargs)
 
@@ -216,6 +230,7 @@ class Assembly(YAMLRoot):
     title: str = None
     description: Optional[str] = None
     fragment_order: Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]] = empty_list()
+    template_file: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.title):
@@ -229,6 +244,9 @@ class Assembly(YAMLRoot):
         if not isinstance(self.fragment_order, list):
             self.fragment_order = [self.fragment_order] if self.fragment_order is not None else []
         self.fragment_order = [v if isinstance(v, CategoryId) else CategoryId(v) for v in self.fragment_order]
+
+        if self.template_file is not None and not isinstance(self.template_file, str):
+            self.template_file = str(self.template_file)
 
         super().__post_init__(**kwargs)
 
@@ -302,7 +320,7 @@ slots.pmid = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.pmid, name="pmid", curie=LINKML
                    pattern=re.compile(r'^PMID:\d+$'))
 
 slots.addgene_url = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, name="addgene_url", curie=LINKML_ASSEMBLY_SUBMISSION.curie('addgene_url'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, domain=None, range=Optional[Union[str, HttpsIdentifier]],
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, domain=None, range=Union[str, HttpsIdentifier],
                    pattern=re.compile(r'^https://www.addgene.org/.+$'))
 
 slots.plasmid_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.plasmid_name, name="plasmid_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('plasmid_name'),
@@ -335,6 +353,10 @@ slots.github_username = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.github_username, nam
 slots.assembly__fragment_order = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.fragment_order, name="assembly__fragment_order", curie=LINKML_ASSEMBLY_SUBMISSION.curie('fragment_order'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order, domain=None, range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]])
 
+slots.assembly__template_file = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.template_file, name="assembly__template_file", curie=LINKML_ASSEMBLY_SUBMISSION.curie('template_file'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__template_file, domain=None, range=Optional[str],
+                   pattern=re.compile(r'^.*.json$'))
+
 slots.submission__submitters = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.submitters, name="submission__submitters", curie=LINKML_ASSEMBLY_SUBMISSION.curie('submitters'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__submitters, domain=None, range=Union[Union[dict, Submitter], List[Union[dict, Submitter]]])
 
@@ -349,3 +371,6 @@ slots.submission__categories = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.categories, n
 
 slots.submission__assemblies = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.assemblies, name="submission__assemblies", curie=LINKML_ASSEMBLY_SUBMISSION.curie('assemblies'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]])
+
+slots.Kit_description = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.description, name="Kit_description", curie=LINKML_ASSEMBLY_SUBMISSION.curie('description'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.Kit_description, domain=Kit, range=str)

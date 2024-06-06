@@ -6,6 +6,7 @@ message Assembly
   string title = 0
   string description = 0
  repeated  category fragmentOrder = 0
+  string templateFile = 0
  }
 message Category
  {
@@ -18,6 +19,8 @@ message Kit
  {
   pMIDIdentifier pmid = 0
   httpsIdentifier addgeneUrl = 0
+  string title = 0
+  string description = 0
  }
 message Sequence
  {

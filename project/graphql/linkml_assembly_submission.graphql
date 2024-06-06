@@ -4,6 +4,7 @@ type Assembly
     title: String!
     description: String
     fragmentOrder: [Category]
+    templateFile: String
   }
 
 type Category
@@ -17,7 +18,9 @@ type Category
 type Kit
   {
     pmid: PMIDIdentifier!
-    addgeneUrl: HttpsIdentifier
+    addgeneUrl: HttpsIdentifier!
+    title: String!
+    description: String!
   }
 
 type Sequence

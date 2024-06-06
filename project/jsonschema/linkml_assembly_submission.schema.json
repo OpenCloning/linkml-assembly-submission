@@ -14,6 +14,10 @@
                     },
                     "type": "array"
                 },
+                "template_file": {
+                    "pattern": "^.*.json$",
+                    "type": "string"
+                },
                 "title": {
                     "description": "A title for the representation of the object",
                     "type": "string"
@@ -63,14 +67,25 @@
                     "pattern": "^https://www.addgene.org/.+$",
                     "type": "string"
                 },
+                "description": {
+                    "description": "A description of the object",
+                    "type": "string"
+                },
                 "pmid": {
                     "description": "The PubMed ID for the object",
                     "pattern": "^PMID:\\d+$",
                     "type": "string"
+                },
+                "title": {
+                    "description": "A title for the representation of the object",
+                    "type": "string"
                 }
             },
             "required": [
-                "pmid"
+                "pmid",
+                "addgene_url",
+                "title",
+                "description"
             ],
             "title": "Kit",
             "type": "object"

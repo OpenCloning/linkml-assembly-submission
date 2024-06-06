@@ -70,6 +70,7 @@ slots:
     description: >-
       The Addgene URL for the kit
     pattern: ^https://www.addgene.org/.+$
+    required: true
   plasmid_name:
     range: string
   addgene_id:
@@ -118,11 +119,16 @@ classes:
     slots:
       - pmid
       - addgene_url
+      - title
+      - description
     unique_keys:
       addgene_url_key:
         unique_key_name: addgene_url_key
         unique_key_slots:
           - addgene_url
+    slot_usage:
+      description:
+        required: true
   Sequence:
     slots:
       - plasmid_name
@@ -160,6 +166,9 @@ classes:
       fragment_order:
         range: Category
         multivalued: true
+      template_file:
+        range: string
+        pattern: ^.*.json$
 
   Submission:
     tree_root: true

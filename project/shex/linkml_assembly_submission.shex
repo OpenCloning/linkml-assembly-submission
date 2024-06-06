@@ -52,7 +52,8 @@ linkml:Sparqlpath xsd:string
 <Assembly> CLOSED {
     (  $<Assembly_tes> (  <title> @linkml:String ;
           <description> @linkml:String ? ;
-          <fragment_order> @<Category> *
+          <fragment_order> @<Category> * ;
+          <template_file> @linkml:String ?
        ) ;
        rdf:type [ <Assembly> ] ?
     )
@@ -68,7 +69,10 @@ linkml:Sparqlpath xsd:string
 }
 
 <Kit> CLOSED {
-    (  $<Kit_tes> <addgene_url> @<HttpsIdentifier> ? ;
+    (  $<Kit_tes> (  <addgene_url> @<HttpsIdentifier> ;
+          <title> @linkml:String ;
+          <description> @linkml:String
+       ) ;
        rdf:type [ <Kit> ]
     )
 }

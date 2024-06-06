@@ -7,6 +7,8 @@
 -- # Class: "Kit" Description: ""
 --     * Slot: pmid Description: The PubMed ID for the object
 --     * Slot: addgene_url Description: The Addgene URL for the kit
+--     * Slot: title Description: A title for the representation of the object
+--     * Slot: description Description: A description of the object
 -- # Class: "Sequence" Description: ""
 --     * Slot: plasmid_name Description: 
 --     * Slot: addgene_id Description: The Addgene ID for the plasmid
@@ -25,6 +27,7 @@
 --     * Slot: id Description: 
 --     * Slot: title Description: A title for the representation of the object
 --     * Slot: description Description: A description of the object
+--     * Slot: template_file Description: 
 --     * Slot: Submission_id Description: Autocreated FK slot
 -- # Class: "Submission" Description: ""
 --     * Slot: id Description: 
@@ -35,7 +38,9 @@
 
 CREATE TABLE "Kit" (
 	pmid TEXT NOT NULL, 
-	addgene_url TEXT, 
+	addgene_url TEXT NOT NULL, 
+	title TEXT NOT NULL, 
+	description TEXT NOT NULL, 
 	PRIMARY KEY (pmid), 
 	UNIQUE (addgene_url)
 );
@@ -69,6 +74,7 @@ CREATE TABLE "Assembly" (
 	id INTEGER NOT NULL, 
 	title TEXT NOT NULL, 
 	description TEXT, 
+	template_file TEXT, 
 	"Submission_id" INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
