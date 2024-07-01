@@ -23,6 +23,12 @@ type Kit
     description: String!
   }
 
+type Primer
+  {
+    name: String!
+    sequence: DnaSequence!
+  }
+
 type Sequence
   {
     plasmidName: String
@@ -40,6 +46,7 @@ type Submission
     sequences: [Sequence]!
     categories: [Category]!
     assemblies: [Assembly]!
+    primers: [Primer]
   }
 
 type Submitter

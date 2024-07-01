@@ -89,6 +89,25 @@
             "title": "Kit",
             "type": "object"
         },
+        "Primer": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "sequence": {
+                    "pattern": "^[ACGTacgt]*$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "sequence"
+            ],
+            "title": "Primer",
+            "type": "object"
+        },
         "Sequence": {
             "additionalProperties": false,
             "description": "",
@@ -141,6 +160,12 @@
                 },
                 "kit": {
                     "$ref": "#/$defs/Kit"
+                },
+                "primers": {
+                    "items": {
+                        "$ref": "#/$defs/Primer"
+                    },
+                    "type": "array"
                 },
                 "sequences": {
                     "items": {
@@ -211,6 +236,12 @@
         },
         "kit": {
             "$ref": "#/$defs/Kit"
+        },
+        "primers": {
+            "items": {
+                "$ref": "#/$defs/Primer"
+            },
+            "type": "array"
         },
         "sequences": {
             "items": {

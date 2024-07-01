@@ -1,5 +1,5 @@
 # Auto generated from linkml_assembly_submission.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-01T18:01:25
+# Generation date: 2024-07-01T18:09:49
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
@@ -61,6 +61,13 @@ class OrcidIdentifier(String):
     type_class_curie = "xsd:string"
     type_name = "orcid identifier"
     type_model_uri = LINKML_ASSEMBLY_SUBMISSION.OrcidIdentifier
+
+
+class DnaSequence(String):
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "dna_sequence"
+    type_model_uri = LINKML_ASSEMBLY_SUBMISSION.DnaSequence
 
 
 # Class references
@@ -213,6 +220,32 @@ class Submitter(YAMLRoot):
 
 
 @dataclass
+class Primer(YAMLRoot):
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["Primer"]
+    class_class_curie: ClassVar[str] = "linkml_assembly_submission:Primer"
+    class_name: ClassVar[str] = "Primer"
+    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Primer
+
+    name: str = None
+    sequence: Union[str, DnaSequence] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self._is_empty(self.sequence):
+            self.MissingRequiredField("sequence")
+        if not isinstance(self.sequence, DnaSequence):
+            self.sequence = DnaSequence(self.sequence)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass
 class Assembly(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
@@ -259,6 +292,7 @@ class Submission(YAMLRoot):
     sequences: Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]] = empty_dict()
     categories: Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]] = empty_dict()
     assemblies: Union[Union[dict, Assembly], List[Union[dict, Assembly]]] = None
+    primers: Optional[Union[Union[dict, Primer], List[Union[dict, Primer]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.submitters):
@@ -285,6 +319,10 @@ class Submission(YAMLRoot):
         if not isinstance(self.assemblies, list):
             self.assemblies = [self.assemblies] if self.assemblies is not None else []
         self.assemblies = [v if isinstance(v, Assembly) else Assembly(**as_dict(v)) for v in self.assemblies]
+
+        if not isinstance(self.primers, list):
+            self.primers = [self.primers] if self.primers is not None else []
+        self.primers = [v if isinstance(v, Primer) else Primer(**as_dict(v)) for v in self.primers]
 
         super().__post_init__(**kwargs)
 
@@ -344,6 +382,12 @@ slots.github_username = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.github_username, nam
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.github_username, domain=None, range=Optional[str],
                    pattern=re.compile(r'^[a-zA-Z0-9-]+$'))
 
+slots.primer__name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="primer__name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__name, domain=None, range=str)
+
+slots.primer__sequence = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequence, name="primer__sequence", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequence'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__sequence, domain=None, range=Union[str, DnaSequence])
+
 slots.assembly__fragment_order = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.fragment_order, name="assembly__fragment_order", curie=LINKML_ASSEMBLY_SUBMISSION.curie('fragment_order'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order, domain=None, range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]])
 
@@ -365,6 +409,9 @@ slots.submission__categories = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.categories, n
 
 slots.submission__assemblies = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.assemblies, name="submission__assemblies", curie=LINKML_ASSEMBLY_SUBMISSION.curie('assemblies'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]])
+
+slots.submission__primers = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.primers, name="submission__primers", curie=LINKML_ASSEMBLY_SUBMISSION.curie('primers'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__primers, domain=None, range=Optional[Union[Union[dict, Primer], List[Union[dict, Primer]]]])
 
 slots.Kit_description = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.description, name="Kit_description", curie=LINKML_ASSEMBLY_SUBMISSION.curie('description'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.Kit_description, domain=Kit, range=str)

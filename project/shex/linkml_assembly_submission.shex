@@ -11,6 +11,8 @@ PREFIX linkml: <https://w3id.org/linkml/>
 
 <OrcidIdentifier> xsd:string
 
+<DnaSequence> xsd:string
+
 linkml:String xsd:string
 
 linkml:Integer xsd:integer
@@ -78,6 +80,14 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<Primer> CLOSED {
+    (  $<Primer_tes> (  <name> @linkml:String ;
+          <sequence> @<DnaSequence>
+       ) ;
+       rdf:type [ <Primer> ] ?
+    )
+}
+
 <Sequence> CLOSED {
     (  $<Sequence_tes> (  <plasmid_name> @linkml:String ? ;
           <category> @<Category> ;
@@ -94,7 +104,8 @@ linkml:Sparqlpath xsd:string
           <kit> @<Kit> ;
           <sequences> @<Sequence> + ;
           <categories> @<Category> + ;
-          <assemblies> @<Assembly> +
+          <assemblies> @<Assembly> + ;
+          <primers> @<Primer> *
        ) ;
        rdf:type [ <Submission> ] ?
     )

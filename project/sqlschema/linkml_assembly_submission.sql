@@ -24,6 +24,11 @@
 --     * Slot: orcid Description: The ORCID of the submitter
 --     * Slot: github_username Description: The GitHub username of the submitter
 --     * Slot: Submission_id Description: Autocreated FK slot
+-- # Class: "Primer" Description: ""
+--     * Slot: id Description: 
+--     * Slot: name Description: 
+--     * Slot: sequence Description: 
+--     * Slot: Submission_id Description: Autocreated FK slot
 -- # Class: "Assembly" Description: ""
 --     * Slot: id Description: 
 --     * Slot: title Description: A title for the representation of the object
@@ -70,6 +75,14 @@ CREATE TABLE "Submitter" (
 	PRIMARY KEY (id), 
 	UNIQUE (orcid), 
 	UNIQUE (github_username), 
+	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
+);
+CREATE TABLE "Primer" (
+	id INTEGER NOT NULL, 
+	name TEXT NOT NULL, 
+	sequence TEXT NOT NULL, 
+	"Submission_id" INTEGER, 
+	PRIMARY KEY (id), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
 CREATE TABLE "Assembly" (

@@ -34,6 +34,9 @@ types:
     typeof: string
     id_prefixes:
       - ORCID
+  dna_sequence:
+    typeof: string
+    pattern: ^[ACGTacgt]*$
 
 slots:
   id:
@@ -157,6 +160,15 @@ classes:
         unique_key_slots:
           - github_username
 
+  Primer:
+    attributes:
+      name:
+        range: string
+        required: true
+      sequence:
+        range: dna_sequence
+        required: true
+
   Assembly:
     slots:
       - title
@@ -208,3 +220,8 @@ classes:
           dimensions:
             minimum_cardinality: 1
         required: true
+      primers:
+        range: Primer
+        multivalued: true
+        inlined_as_list: true
+        required: false

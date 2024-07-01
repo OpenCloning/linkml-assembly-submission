@@ -76,6 +76,16 @@
       "@type": "TypeDefinition"
     },
     {
+      "name": "dna_sequence",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/DnaSequence",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "typeof": "string",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "pattern": "^[ACGTacgt]*$",
+      "@type": "TypeDefinition"
+    },
+    {
       "name": "string",
       "definition_uri": "https://w3id.org/linkml/String",
       "description": "A character string",
@@ -590,6 +600,32 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "primer__name",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "alias": "name",
+      "owner": "Primer",
+      "domain_of": [
+        "Primer"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "primer__sequence",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/sequence",
+      "alias": "sequence",
+      "owner": "Primer",
+      "domain_of": [
+        "Primer"
+      ],
+      "range": "dna_sequence",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "assembly__fragment_order",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/fragment_order",
@@ -730,6 +766,21 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "submission__primers",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/primers",
+      "multivalued": true,
+      "alias": "primers",
+      "owner": "Submission",
+      "domain_of": [
+        "Submission"
+      ],
+      "range": "Primer",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "Kit_description",
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/description",
       "description": "A description of the object",
@@ -842,6 +893,32 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "Primer",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Primer",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slots": [
+        "primer__name",
+        "primer__sequence"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "name",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "sequence",
+          "range": "dna_sequence",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Primer",
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "Assembly",
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Assembly",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
@@ -878,7 +955,8 @@
         "submission__kit",
         "submission__sequences",
         "submission__categories",
-        "submission__assemblies"
+        "submission__assemblies",
+        "submission__primers"
       ],
       "slot_usage": {},
       "attributes": [
@@ -956,6 +1034,13 @@
           "required": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
+        },
+        {
+          "name": "primers",
+          "multivalued": true,
+          "range": "Primer",
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
         }
       ],
       "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Submission",
@@ -965,9 +1050,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "linkml_assembly_submission.yaml",
-  "source_file_date": "2024-07-01T18:01:23",
-  "source_file_size": 4588,
-  "generation_date": "2024-07-01T18:01:25",
+  "source_file_date": "2024-07-01T18:07:43",
+  "source_file_size": 4918,
+  "generation_date": "2024-07-01T18:09:49",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/linkml_assembly_submission.context.jsonld",
