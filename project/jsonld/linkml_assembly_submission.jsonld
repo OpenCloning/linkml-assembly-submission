@@ -458,13 +458,11 @@
       ],
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/pmid",
-      "identifier": true,
       "owner": "Kit",
       "domain_of": [
         "Kit"
       ],
       "range": "PMID_identifier",
-      "required": true,
       "pattern": "^PMID:\\d+$",
       "@type": "SlotDefinition"
     },
@@ -967,9 +965,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "linkml_assembly_submission.yaml",
-  "source_file_date": "2024-06-06T14:06:37",
-  "source_file_size": 4608,
-  "generation_date": "2024-06-06T14:07:23",
+  "source_file_date": "2024-07-01T18:01:23",
+  "source_file_size": 4588,
+  "generation_date": "2024-07-01T18:01:25",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/linkml_assembly_submission.context.jsonld",

@@ -1,5 +1,5 @@
 # Auto generated from linkml_assembly_submission.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-06-06T14:07:23
+# Generation date: 2024-07-01T18:01:25
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
@@ -68,10 +68,6 @@ class CategoryId(extended_str):
     pass
 
 
-class KitPmid(PMIDIdentifier):
-    pass
-
-
 class SequenceAddgeneId(extended_str):
     pass
 
@@ -119,17 +115,12 @@ class Kit(YAMLRoot):
     class_name: ClassVar[str] = "Kit"
     class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Kit
 
-    pmid: Union[str, KitPmid] = None
     addgene_url: Union[str, HttpsIdentifier] = None
     title: str = None
     description: str = None
+    pmid: Optional[Union[str, PMIDIdentifier]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self._is_empty(self.pmid):
-            self.MissingRequiredField("pmid")
-        if not isinstance(self.pmid, KitPmid):
-            self.pmid = KitPmid(self.pmid)
-
         if self._is_empty(self.addgene_url):
             self.MissingRequiredField("addgene_url")
         if not isinstance(self.addgene_url, HttpsIdentifier):
@@ -144,6 +135,9 @@ class Kit(YAMLRoot):
             self.MissingRequiredField("description")
         if not isinstance(self.description, str):
             self.description = str(self.description)
+
+        if self.pmid is not None and not isinstance(self.pmid, PMIDIdentifier):
+            self.pmid = PMIDIdentifier(self.pmid)
 
         super().__post_init__(**kwargs)
 
@@ -316,7 +310,7 @@ slots.image = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.image, name="image", curie=LIN
                    pattern=re.compile(r'^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|gif|svg)$'))
 
 slots.pmid = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.pmid, name="pmid", curie=LINKML_ASSEMBLY_SUBMISSION.curie('pmid'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.pmid, domain=None, range=URIRef,
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.pmid, domain=None, range=Optional[Union[str, PMIDIdentifier]],
                    pattern=re.compile(r'^PMID:\d+$'))
 
 slots.addgene_url = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, name="addgene_url", curie=LINKML_ASSEMBLY_SUBMISSION.curie('addgene_url'),

@@ -69,11 +69,12 @@ linkml:Sparqlpath xsd:string
 }
 
 <Kit> CLOSED {
-    (  $<Kit_tes> (  <addgene_url> @<HttpsIdentifier> ;
+    (  $<Kit_tes> (  <pmid> @<PMIDIdentifier> ? ;
+          <addgene_url> @<HttpsIdentifier> ;
           <title> @linkml:String ;
           <description> @linkml:String
        ) ;
-       rdf:type [ <Kit> ]
+       rdf:type [ <Kit> ] ?
     )
 }
 

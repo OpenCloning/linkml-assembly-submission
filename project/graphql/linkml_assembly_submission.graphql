@@ -17,7 +17,7 @@ type Category
 
 type Kit
   {
-    pmid: PMIDIdentifier!
+    pmid: PMIDIdentifier
     addgeneUrl: HttpsIdentifier!
     title: String!
     description: String!

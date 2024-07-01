@@ -82,7 +82,6 @@
                 }
             },
             "required": [
-                "pmid",
                 "addgene_url",
                 "title",
                 "description"

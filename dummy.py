@@ -58,7 +58,7 @@ class Category(ConfiguredBaseModel):
 
 
 class Kit(ConfiguredBaseModel):
-    pmid: str = Field(..., description="""The PubMed ID for the object""")
+    pmid: Optional[str] = Field(None, description="""The PubMed ID for the object""")
     addgene_url: str = Field(..., description="""The Addgene URL for the kit""")
     title: str = Field(
         ..., description="""A title for the representation of the object"""

@@ -57,14 +57,13 @@ slots:
       File name of an image for the object
     pattern: ^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|gif|svg)$
   pmid:
-    identifier: true
     range: PMID identifier
     description: >-
       The PubMed ID for the object
     examples:
       - value: PMID:123456
     pattern: ^PMID:\d+$
-    required: true
+    required: false
   addgene_url:
     range: https identifier
     description: >-

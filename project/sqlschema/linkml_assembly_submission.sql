@@ -5,6 +5,7 @@
 --     * Slot: image Description: File name of an image for the object
 --     * Slot: Submission_id Description: Autocreated FK slot
 -- # Class: "Kit" Description: ""
+--     * Slot: id Description: 
 --     * Slot: pmid Description: The PubMed ID for the object
 --     * Slot: addgene_url Description: The Addgene URL for the kit
 --     * Slot: title Description: A title for the representation of the object
@@ -31,24 +32,25 @@
 --     * Slot: Submission_id Description: Autocreated FK slot
 -- # Class: "Submission" Description: ""
 --     * Slot: id Description: 
---     * Slot: kit_pmid Description: 
+--     * Slot: kit_id Description: 
 -- # Class: "Assembly_fragment_order" Description: ""
 --     * Slot: Assembly_id Description: Autocreated FK slot
 --     * Slot: fragment_order_id Description: 
 
 CREATE TABLE "Kit" (
-	pmid TEXT NOT NULL, 
+	id INTEGER NOT NULL, 
+	pmid TEXT, 
 	addgene_url TEXT NOT NULL, 
 	title TEXT NOT NULL, 
 	description TEXT NOT NULL, 
-	PRIMARY KEY (pmid), 
+	PRIMARY KEY (id), 
 	UNIQUE (addgene_url)
 );
 CREATE TABLE "Submission" (
 	id INTEGER NOT NULL, 
-	kit_pmid TEXT NOT NULL, 
+	kit_id INTEGER NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(kit_pmid) REFERENCES "Kit" (pmid)
+	FOREIGN KEY(kit_id) REFERENCES "Kit" (id)
 );
 CREATE TABLE "Category" (
 	id TEXT NOT NULL, 
