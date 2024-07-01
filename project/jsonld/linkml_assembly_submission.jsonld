@@ -524,9 +524,10 @@
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/category",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/category",
-      "owner": "Sequence",
+      "owner": "PrimerPair",
       "domain_of": [
-        "Sequence"
+        "Sequence",
+        "PrimerPair"
       ],
       "range": "Category",
       "required": true,
@@ -603,6 +604,7 @@
       "name": "primer__name",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "identifier": true,
       "alias": "name",
       "owner": "Primer",
       "domain_of": [
@@ -622,6 +624,46 @@
         "Primer"
       ],
       "range": "dna_sequence",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "primerPair__forward_primer",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/forward_primer",
+      "alias": "forward_primer",
+      "owner": "PrimerPair",
+      "domain_of": [
+        "PrimerPair"
+      ],
+      "range": "Primer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "primerPair__reverse_primer",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/reverse_primer",
+      "alias": "reverse_primer",
+      "owner": "PrimerPair",
+      "domain_of": [
+        "PrimerPair"
+      ],
+      "range": "Primer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "primerPair__name",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "identifier": true,
+      "alias": "name",
+      "owner": "PrimerPair",
+      "domain_of": [
+        "PrimerPair"
+      ],
+      "range": "string",
       "required": true,
       "@type": "SlotDefinition"
     },
@@ -781,6 +823,21 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "submission__primer_pairs",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/primer_pairs",
+      "multivalued": true,
+      "alias": "primer_pairs",
+      "owner": "Submission",
+      "domain_of": [
+        "Submission"
+      ],
+      "range": "PrimerPair",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "Kit_description",
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/description",
       "description": "A description of the object",
@@ -904,6 +961,7 @@
       "attributes": [
         {
           "name": "name",
+          "identifier": true,
           "range": "string",
           "required": true,
           "@type": "SlotDefinition"
@@ -916,6 +974,41 @@
         }
       ],
       "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Primer",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "PrimerPair",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/PrimerPair",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slots": [
+        "category",
+        "primerPair__forward_primer",
+        "primerPair__reverse_primer",
+        "primerPair__name"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "forward_primer",
+          "range": "Primer",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "reverse_primer",
+          "range": "Primer",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "name",
+          "identifier": true,
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/PrimerPair",
       "@type": "ClassDefinition"
     },
     {
@@ -956,7 +1049,8 @@
         "submission__sequences",
         "submission__categories",
         "submission__assemblies",
-        "submission__primers"
+        "submission__primers",
+        "submission__primer_pairs"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1041,6 +1135,13 @@
           "range": "Primer",
           "inlined_as_list": true,
           "@type": "SlotDefinition"
+        },
+        {
+          "name": "primer_pairs",
+          "multivalued": true,
+          "range": "PrimerPair",
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
         }
       ],
       "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Submission",
@@ -1050,9 +1151,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "linkml_assembly_submission.yaml",
-  "source_file_date": "2024-07-01T18:07:43",
-  "source_file_size": 4918,
-  "generation_date": "2024-07-01T18:09:49",
+  "source_file_date": "2024-07-01T18:22:39",
+  "source_file_size": 5344,
+  "generation_date": "2024-07-01T18:24:06",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/linkml_assembly_submission.context.jsonld",

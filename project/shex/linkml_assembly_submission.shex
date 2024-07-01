@@ -81,10 +81,17 @@ linkml:Sparqlpath xsd:string
 }
 
 <Primer> CLOSED {
-    (  $<Primer_tes> (  <name> @linkml:String ;
-          <sequence> @<DnaSequence>
+    (  $<Primer_tes> <sequence> @<DnaSequence> ;
+       rdf:type [ <Primer> ]
+    )
+}
+
+<PrimerPair> CLOSED {
+    (  $<PrimerPair_tes> (  <category> @<Category> ;
+          <forward_primer> @<Primer> ;
+          <reverse_primer> @<Primer>
        ) ;
-       rdf:type [ <Primer> ] ?
+       rdf:type [ <PrimerPair> ]
     )
 }
 
@@ -105,7 +112,8 @@ linkml:Sparqlpath xsd:string
           <sequences> @<Sequence> + ;
           <categories> @<Category> + ;
           <assemblies> @<Assembly> + ;
-          <primers> @<Primer> *
+          <primers> @<Primer> * ;
+          <primer_pairs> @<PrimerPair> *
        ) ;
        rdf:type [ <Submission> ] ?
     )

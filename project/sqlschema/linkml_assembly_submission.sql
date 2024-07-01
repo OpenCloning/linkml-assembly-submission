@@ -25,9 +25,14 @@
 --     * Slot: github_username Description: The GitHub username of the submitter
 --     * Slot: Submission_id Description: Autocreated FK slot
 -- # Class: "Primer" Description: ""
---     * Slot: id Description: 
 --     * Slot: name Description: 
 --     * Slot: sequence Description: 
+--     * Slot: Submission_id Description: Autocreated FK slot
+-- # Class: "PrimerPair" Description: ""
+--     * Slot: category Description: 
+--     * Slot: forward_primer Description: 
+--     * Slot: reverse_primer Description: 
+--     * Slot: name Description: 
 --     * Slot: Submission_id Description: Autocreated FK slot
 -- # Class: "Assembly" Description: ""
 --     * Slot: id Description: 
@@ -78,11 +83,10 @@ CREATE TABLE "Submitter" (
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
 CREATE TABLE "Primer" (
-	id INTEGER NOT NULL, 
 	name TEXT NOT NULL, 
 	sequence TEXT NOT NULL, 
 	"Submission_id" INTEGER, 
-	PRIMARY KEY (id), 
+	PRIMARY KEY (name), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
 CREATE TABLE "Assembly" (
@@ -105,6 +109,18 @@ CREATE TABLE "Sequence" (
 	PRIMARY KEY (addgene_id), 
 	UNIQUE (addgene_id), 
 	FOREIGN KEY(category) REFERENCES "Category" (id), 
+	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
+);
+CREATE TABLE "PrimerPair" (
+	category TEXT NOT NULL, 
+	forward_primer TEXT NOT NULL, 
+	reverse_primer TEXT NOT NULL, 
+	name TEXT NOT NULL, 
+	"Submission_id" INTEGER, 
+	PRIMARY KEY (name), 
+	FOREIGN KEY(category) REFERENCES "Category" (id), 
+	FOREIGN KEY(forward_primer) REFERENCES "Primer" (name), 
+	FOREIGN KEY(reverse_primer) REFERENCES "Primer" (name), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
 CREATE TABLE "Assembly_fragment_order" (

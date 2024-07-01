@@ -1,5 +1,5 @@
 # Auto generated from linkml_assembly_submission.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-01T18:09:49
+# Generation date: 2024-07-01T18:24:06
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
@@ -76,6 +76,14 @@ class CategoryId(extended_str):
 
 
 class SequenceAddgeneId(extended_str):
+    pass
+
+
+class PrimerName(extended_str):
+    pass
+
+
+class PrimerPairName(extended_str):
     pass
 
 
@@ -228,19 +236,57 @@ class Primer(YAMLRoot):
     class_name: ClassVar[str] = "Primer"
     class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Primer
 
-    name: str = None
+    name: Union[str, PrimerName] = None
     sequence: Union[str, DnaSequence] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
-        if not isinstance(self.name, str):
-            self.name = str(self.name)
+        if not isinstance(self.name, PrimerName):
+            self.name = PrimerName(self.name)
 
         if self._is_empty(self.sequence):
             self.MissingRequiredField("sequence")
         if not isinstance(self.sequence, DnaSequence):
             self.sequence = DnaSequence(self.sequence)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass
+class PrimerPair(YAMLRoot):
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["PrimerPair"]
+    class_class_curie: ClassVar[str] = "linkml_assembly_submission:PrimerPair"
+    class_name: ClassVar[str] = "PrimerPair"
+    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.PrimerPair
+
+    name: Union[str, PrimerPairName] = None
+    category: Union[str, CategoryId] = None
+    forward_primer: Union[str, PrimerName] = None
+    reverse_primer: Union[str, PrimerName] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, PrimerPairName):
+            self.name = PrimerPairName(self.name)
+
+        if self._is_empty(self.category):
+            self.MissingRequiredField("category")
+        if not isinstance(self.category, CategoryId):
+            self.category = CategoryId(self.category)
+
+        if self._is_empty(self.forward_primer):
+            self.MissingRequiredField("forward_primer")
+        if not isinstance(self.forward_primer, PrimerName):
+            self.forward_primer = PrimerName(self.forward_primer)
+
+        if self._is_empty(self.reverse_primer):
+            self.MissingRequiredField("reverse_primer")
+        if not isinstance(self.reverse_primer, PrimerName):
+            self.reverse_primer = PrimerName(self.reverse_primer)
 
         super().__post_init__(**kwargs)
 
@@ -292,7 +338,8 @@ class Submission(YAMLRoot):
     sequences: Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]] = empty_dict()
     categories: Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]] = empty_dict()
     assemblies: Union[Union[dict, Assembly], List[Union[dict, Assembly]]] = None
-    primers: Optional[Union[Union[dict, Primer], List[Union[dict, Primer]]]] = empty_list()
+    primers: Optional[Union[Dict[Union[str, PrimerName], Union[dict, Primer]], List[Union[dict, Primer]]]] = empty_dict()
+    primer_pairs: Optional[Union[Dict[Union[str, PrimerPairName], Union[dict, PrimerPair]], List[Union[dict, PrimerPair]]]] = empty_dict()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.submitters):
@@ -320,9 +367,9 @@ class Submission(YAMLRoot):
             self.assemblies = [self.assemblies] if self.assemblies is not None else []
         self.assemblies = [v if isinstance(v, Assembly) else Assembly(**as_dict(v)) for v in self.assemblies]
 
-        if not isinstance(self.primers, list):
-            self.primers = [self.primers] if self.primers is not None else []
-        self.primers = [v if isinstance(v, Primer) else Primer(**as_dict(v)) for v in self.primers]
+        self._normalize_inlined_as_list(slot_name="primers", slot_type=Primer, key_name="name", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="primer_pairs", slot_type=PrimerPair, key_name="name", keyed=True)
 
         super().__post_init__(**kwargs)
 
@@ -383,10 +430,19 @@ slots.github_username = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.github_username, nam
                    pattern=re.compile(r'^[a-zA-Z0-9-]+$'))
 
 slots.primer__name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="primer__name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__name, domain=None, range=str)
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__name, domain=None, range=URIRef)
 
 slots.primer__sequence = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequence, name="primer__sequence", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequence'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__sequence, domain=None, range=Union[str, DnaSequence])
+
+slots.primerPair__forward_primer = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.forward_primer, name="primerPair__forward_primer", curie=LINKML_ASSEMBLY_SUBMISSION.curie('forward_primer'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primerPair__forward_primer, domain=None, range=Union[str, PrimerName])
+
+slots.primerPair__reverse_primer = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.reverse_primer, name="primerPair__reverse_primer", curie=LINKML_ASSEMBLY_SUBMISSION.curie('reverse_primer'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primerPair__reverse_primer, domain=None, range=Union[str, PrimerName])
+
+slots.primerPair__name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="primerPair__name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primerPair__name, domain=None, range=URIRef)
 
 slots.assembly__fragment_order = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.fragment_order, name="assembly__fragment_order", curie=LINKML_ASSEMBLY_SUBMISSION.curie('fragment_order'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order, domain=None, range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]])
@@ -411,7 +467,10 @@ slots.submission__assemblies = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.assemblies, n
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]])
 
 slots.submission__primers = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.primers, name="submission__primers", curie=LINKML_ASSEMBLY_SUBMISSION.curie('primers'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__primers, domain=None, range=Optional[Union[Union[dict, Primer], List[Union[dict, Primer]]]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__primers, domain=None, range=Optional[Union[Dict[Union[str, PrimerName], Union[dict, Primer]], List[Union[dict, Primer]]]])
+
+slots.submission__primer_pairs = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.primer_pairs, name="submission__primer_pairs", curie=LINKML_ASSEMBLY_SUBMISSION.curie('primer_pairs'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__primer_pairs, domain=None, range=Optional[Union[Dict[Union[str, PrimerPairName], Union[dict, PrimerPair]], List[Union[dict, PrimerPair]]]])
 
 slots.Kit_description = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.description, name="Kit_description", curie=LINKML_ASSEMBLY_SUBMISSION.curie('description'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.Kit_description, domain=Kit, range=str)

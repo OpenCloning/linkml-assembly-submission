@@ -108,6 +108,32 @@
             "title": "Primer",
             "type": "object"
         },
+        "PrimerPair": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "forward_primer": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "reverse_primer": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "category",
+                "forward_primer",
+                "reverse_primer",
+                "name"
+            ],
+            "title": "PrimerPair",
+            "type": "object"
+        },
         "Sequence": {
             "additionalProperties": false,
             "description": "",
@@ -160,6 +186,12 @@
                 },
                 "kit": {
                     "$ref": "#/$defs/Kit"
+                },
+                "primer_pairs": {
+                    "items": {
+                        "$ref": "#/$defs/PrimerPair"
+                    },
+                    "type": "array"
                 },
                 "primers": {
                     "items": {
@@ -236,6 +268,12 @@
         },
         "kit": {
             "$ref": "#/$defs/Kit"
+        },
+        "primer_pairs": {
+            "items": {
+                "$ref": "#/$defs/PrimerPair"
+            },
+            "type": "array"
         },
         "primers": {
             "items": {

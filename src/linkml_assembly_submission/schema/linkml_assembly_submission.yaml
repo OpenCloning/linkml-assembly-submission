@@ -165,9 +165,25 @@ classes:
       name:
         range: string
         required: true
+        identifier: true
       sequence:
         range: dna_sequence
         required: true
+
+  PrimerPair:
+    slots:
+      - category
+    attributes:
+      forward_primer:
+        range: Primer
+        required: true
+      reverse_primer:
+        range: Primer
+        required: true
+      name:
+        range: string
+        required: true
+        identifier: true
 
   Assembly:
     slots:
@@ -222,6 +238,11 @@ classes:
         required: true
       primers:
         range: Primer
+        multivalued: true
+        inlined_as_list: true
+        required: false
+      primer_pairs:
+        range: PrimerPair
         multivalued: true
         inlined_as_list: true
         required: false

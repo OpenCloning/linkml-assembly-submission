@@ -29,6 +29,14 @@ type Primer
     sequence: DnaSequence!
   }
 
+type PrimerPair
+  {
+    category: Category!
+    forwardPrimer: Primer!
+    reversePrimer: Primer!
+    name: String!
+  }
+
 type Sequence
   {
     plasmidName: String
@@ -47,6 +55,7 @@ type Submission
     categories: [Category]!
     assemblies: [Assembly]!
     primers: [Primer]
+    primerPairs: [PrimerPair]
   }
 
 type Submitter

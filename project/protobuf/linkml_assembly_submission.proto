@@ -27,6 +27,13 @@ message Primer
   string name = 0
   dnaSequence sequence = 0
  }
+message PrimerPair
+ {
+  category category = 0
+  primer forwardPrimer = 0
+  primer reversePrimer = 0
+  string name = 0
+ }
 message Sequence
  {
   string plasmidName = 0
@@ -44,6 +51,7 @@ message Submission
  repeated  category categories = 0
  repeated  assembly assemblies = 0
  repeated  primer primers = 0
+ repeated  primerPair primerPairs = 0
  }
 message Submitter
  {
