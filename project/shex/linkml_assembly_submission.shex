@@ -51,6 +51,16 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
+<AddGenePlasmid> CLOSED {
+    (  $<AddGenePlasmid_tes> (  &<Sequence_tes> ;
+          rdf:type [ <Sequence> ] ? ;
+          <resistance> @linkml:String ? ;
+          <well> @linkml:String ?
+       ) ;
+       rdf:type [ <AddGenePlasmid> ]
+    )
+}
+
 <Assembly> CLOSED {
     (  $<Assembly_tes> (  <title> @linkml:String ;
           <description> @linkml:String ? ;
@@ -80,31 +90,35 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<Primer> CLOSED {
-    (  $<Primer_tes> <sequence> @<DnaSequence> ;
-       rdf:type [ <Primer> ]
+<Oligo> CLOSED {
+    (  $<Oligo_tes> (  <id> @linkml:Integer ? ;
+          <sequence> @<DnaSequence>
+       ) ;
+       rdf:type [ <Oligo> ]
     )
 }
 
-<PrimerPair> CLOSED {
-    (  $<PrimerPair_tes> (  <category> @<Category> ;
-          <forward_primer> @<Primer> ;
-          <reverse_primer> @<Primer>
+<OligoPair> CLOSED {
+    (  $<OligoPair_tes> (  &<Sequence_tes> ;
+          rdf:type [ <Sequence> ] ? ;
+          <forward_oligo> @<Oligo> ;
+          <reverse_oligo> @<Oligo>
        ) ;
-       rdf:type [ <PrimerPair> ]
+       rdf:type [ <OligoPair> ]
     )
 }
 
-<Sequence> CLOSED {
-    (  $<Sequence_tes> (  <plasmid_name> @linkml:String ? ;
-          <category> @<Category> ;
-          <resistance> @linkml:String ? ;
-          <well> @linkml:String ? ;
-          <description> @linkml:String ?
-       ) ;
-       rdf:type [ <Sequence> ]
-    )
-}
+<Sequence>  (
+    CLOSED {
+       (  $<Sequence_tes> (  <name> @linkml:String ;
+             <category> @<Category> ;
+             <description> @linkml:String ? ;
+             <type> @linkml:String ?
+          ) ;
+          rdf:type [ <Sequence> ] ?
+       )
+    } OR @<AddGenePlasmid> OR @<OligoPair>
+)
 
 <Submission> CLOSED {
     (  $<Submission_tes> (  <submitters> @<Submitter> + ;
@@ -112,8 +126,7 @@ linkml:Sparqlpath xsd:string
           <sequences> @<Sequence> + ;
           <categories> @<Category> + ;
           <assemblies> @<Assembly> + ;
-          <primers> @<Primer> * ;
-          <primer_pairs> @<PrimerPair> *
+          <oligos> @<Oligo> *
        ) ;
        rdf:type [ <Submission> ] ?
     )

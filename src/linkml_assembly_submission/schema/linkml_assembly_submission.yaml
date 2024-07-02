@@ -73,8 +73,11 @@ slots:
       The Addgene URL for the kit
     pattern: ^https://www.addgene.org/.+$
     required: true
-  plasmid_name:
+  name:
     range: string
+    required: true
+    description: >-
+      The name of a thing
   addgene_id:
     range: string
     identifier: true
@@ -110,6 +113,12 @@ slots:
     # alphanumeric characters and dashes ( - )
     pattern: ^[a-zA-Z0-9-]+$
 
+  type:
+    description: >-
+      The type of sequence
+    designates_type: true
+    range: string
+
 classes:
   Category:
     slots:
@@ -131,11 +140,18 @@ classes:
     slot_usage:
       description:
         required: true
+
   Sequence:
     slots:
-      - plasmid_name
-      - addgene_id
+      - name
       - category
+      - description
+      - type
+
+  AddGenePlasmid:
+    is_a: Sequence
+    slots:
+      - addgene_id
       - resistance
       - well
       - description
@@ -160,29 +176,31 @@ classes:
         unique_key_slots:
           - github_username
 
-  Primer:
+  Oligo:
+    slots:
+      - name
     attributes:
-      name:
-        range: string
-        required: true
-        identifier: true
+      id:
+        range: integer
+        required: false
       sequence:
         range: dna_sequence
         required: true
-
-  PrimerPair:
-    slots:
-      - category
-    attributes:
-      forward_primer:
-        range: Primer
-        required: true
-      reverse_primer:
-        range: Primer
-        required: true
+    slot_usage:
       name:
-        range: string
+        identifier: true
+
+  OligoPair:
+    is_a: Sequence
+    attributes:
+      forward_oligo:
+        range: Oligo
         required: true
+      reverse_oligo:
+        range: Oligo
+        required: true
+    slot_usage:
+      name:
         identifier: true
 
   Assembly:
@@ -236,13 +254,8 @@ classes:
           dimensions:
             minimum_cardinality: 1
         required: true
-      primers:
-        range: Primer
-        multivalued: true
-        inlined_as_list: true
-        required: false
-      primer_pairs:
-        range: PrimerPair
+      oligos:
+        range: Oligo
         multivalued: true
         inlined_as_list: true
         required: false

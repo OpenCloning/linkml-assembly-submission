@@ -1,5 +1,48 @@
 {
     "$defs": {
+        "AddGenePlasmid": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "addgene_id": {
+                    "description": "The Addgene ID for the plasmid",
+                    "pattern": "^\\d+$",
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A description of the object",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of a thing",
+                    "type": "string"
+                },
+                "resistance": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of sequence",
+                    "enum": [
+                        "AddGenePlasmid"
+                    ],
+                    "type": "string"
+                },
+                "well": {
+                    "description": "The well where a plasmid is located in a plate",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "addgene_id",
+                "name",
+                "category"
+            ],
+            "title": "AddGenePlasmid",
+            "type": "object"
+        },
         "Assembly": {
             "additionalProperties": false,
             "description": "",
@@ -89,11 +132,15 @@
             "title": "Kit",
             "type": "object"
         },
-        "Primer": {
+        "Oligo": {
             "additionalProperties": false,
             "description": "",
             "properties": {
+                "id": {
+                    "type": "integer"
+                },
                 "name": {
+                    "description": "The name of a thing",
                     "type": "string"
                 },
                 "sequence": {
@@ -105,44 +152,13 @@
                 "name",
                 "sequence"
             ],
-            "title": "Primer",
+            "title": "Oligo",
             "type": "object"
         },
-        "PrimerPair": {
+        "OligoPair": {
             "additionalProperties": false,
             "description": "",
             "properties": {
-                "category": {
-                    "type": "string"
-                },
-                "forward_primer": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "reverse_primer": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "category",
-                "forward_primer",
-                "reverse_primer",
-                "name"
-            ],
-            "title": "PrimerPair",
-            "type": "object"
-        },
-        "Sequence": {
-            "additionalProperties": false,
-            "description": "",
-            "properties": {
-                "addgene_id": {
-                    "description": "The Addgene ID for the plasmid",
-                    "pattern": "^\\d+$",
-                    "type": "string"
-                },
                 "category": {
                     "type": "string"
                 },
@@ -150,19 +166,58 @@
                     "description": "A description of the object",
                     "type": "string"
                 },
-                "plasmid_name": {
+                "forward_oligo": {
                     "type": "string"
                 },
-                "resistance": {
+                "name": {
+                    "description": "The name of a thing",
                     "type": "string"
                 },
-                "well": {
-                    "description": "The well where a plasmid is located in a plate",
+                "reverse_oligo": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of sequence",
+                    "enum": [
+                        "OligoPair"
+                    ],
                     "type": "string"
                 }
             },
             "required": [
-                "addgene_id",
+                "forward_oligo",
+                "reverse_oligo",
+                "name",
+                "category"
+            ],
+            "title": "OligoPair",
+            "type": "object"
+        },
+        "Sequence": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A description of the object",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of a thing",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of sequence",
+                    "enum": [
+                        "Sequence"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
                 "category"
             ],
             "title": "Sequence",
@@ -187,21 +242,25 @@
                 "kit": {
                     "$ref": "#/$defs/Kit"
                 },
-                "primer_pairs": {
+                "oligos": {
                     "items": {
-                        "$ref": "#/$defs/PrimerPair"
-                    },
-                    "type": "array"
-                },
-                "primers": {
-                    "items": {
-                        "$ref": "#/$defs/Primer"
+                        "$ref": "#/$defs/Oligo"
                     },
                     "type": "array"
                 },
                 "sequences": {
                     "items": {
-                        "$ref": "#/$defs/Sequence"
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/Sequence"
+                            },
+                            {
+                                "$ref": "#/$defs/AddGenePlasmid"
+                            },
+                            {
+                                "$ref": "#/$defs/OligoPair"
+                            }
+                        ]
                     },
                     "type": "array"
                 },
@@ -269,21 +328,25 @@
         "kit": {
             "$ref": "#/$defs/Kit"
         },
-        "primer_pairs": {
+        "oligos": {
             "items": {
-                "$ref": "#/$defs/PrimerPair"
-            },
-            "type": "array"
-        },
-        "primers": {
-            "items": {
-                "$ref": "#/$defs/Primer"
+                "$ref": "#/$defs/Oligo"
             },
             "type": "array"
         },
         "sequences": {
             "items": {
-                "$ref": "#/$defs/Sequence"
+                "anyOf": [
+                    {
+                        "$ref": "#/$defs/Sequence"
+                    },
+                    {
+                        "$ref": "#/$defs/AddGenePlasmid"
+                    },
+                    {
+                        "$ref": "#/$defs/OligoPair"
+                    }
+                ]
             },
             "type": "array"
         },

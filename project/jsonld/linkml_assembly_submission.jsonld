@@ -437,6 +437,7 @@
         "Category",
         "Kit",
         "Sequence",
+        "AddGenePlasmid",
         "Assembly"
       ],
       "range": "string",
@@ -492,15 +493,18 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "plasmid_name",
-      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/plasmid_name",
+      "name": "name",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "description": "The name of a thing",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/plasmid_name",
-      "owner": "Sequence",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "owner": "Oligo",
       "domain_of": [
-        "Sequence"
+        "Sequence",
+        "Oligo"
       ],
       "range": "string",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -510,9 +514,9 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/addgene_id",
       "identifier": true,
-      "owner": "Sequence",
+      "owner": "AddGenePlasmid",
       "domain_of": [
-        "Sequence"
+        "AddGenePlasmid"
       ],
       "range": "string",
       "required": true,
@@ -524,10 +528,9 @@
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/category",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/category",
-      "owner": "PrimerPair",
+      "owner": "Sequence",
       "domain_of": [
-        "Sequence",
-        "PrimerPair"
+        "Sequence"
       ],
       "range": "Category",
       "required": true,
@@ -538,9 +541,9 @@
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/resistance",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/resistance",
-      "owner": "Sequence",
+      "owner": "AddGenePlasmid",
       "domain_of": [
-        "Sequence"
+        "AddGenePlasmid"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -551,9 +554,9 @@
       "description": "The well where a plasmid is located in a plate",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/well",
-      "owner": "Sequence",
+      "owner": "AddGenePlasmid",
       "domain_of": [
-        "Sequence"
+        "AddGenePlasmid"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -601,69 +604,67 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "primer__name",
+      "name": "type",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/type",
+      "description": "The type of sequence",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
-      "identifier": true,
-      "alias": "name",
-      "owner": "Primer",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/type",
+      "designates_type": true,
+      "owner": "Sequence",
       "domain_of": [
-        "Primer"
+        "Sequence"
       ],
       "range": "string",
-      "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "primer__sequence",
+      "name": "oligo__id",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/id",
+      "alias": "id",
+      "owner": "Oligo",
+      "domain_of": [
+        "Oligo"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "oligo__sequence",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/sequence",
       "alias": "sequence",
-      "owner": "Primer",
+      "owner": "Oligo",
       "domain_of": [
-        "Primer"
+        "Oligo"
       ],
       "range": "dna_sequence",
       "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "primerPair__forward_primer",
+      "name": "oligoPair__forward_oligo",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/forward_primer",
-      "alias": "forward_primer",
-      "owner": "PrimerPair",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/forward_oligo",
+      "alias": "forward_oligo",
+      "owner": "OligoPair",
       "domain_of": [
-        "PrimerPair"
+        "OligoPair"
       ],
-      "range": "Primer",
+      "range": "Oligo",
       "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "primerPair__reverse_primer",
+      "name": "oligoPair__reverse_oligo",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/reverse_primer",
-      "alias": "reverse_primer",
-      "owner": "PrimerPair",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/reverse_oligo",
+      "alias": "reverse_oligo",
+      "owner": "OligoPair",
       "domain_of": [
-        "PrimerPair"
+        "OligoPair"
       ],
-      "range": "Primer",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "primerPair__name",
-      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
-      "identifier": true,
-      "alias": "name",
-      "owner": "PrimerPair",
-      "domain_of": [
-        "PrimerPair"
-      ],
-      "range": "string",
+      "range": "Oligo",
       "required": true,
       "@type": "SlotDefinition"
     },
@@ -808,31 +809,16 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "submission__primers",
+      "name": "submission__oligos",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/primers",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/oligos",
       "multivalued": true,
-      "alias": "primers",
+      "alias": "oligos",
       "owner": "Submission",
       "domain_of": [
         "Submission"
       ],
-      "range": "Primer",
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "submission__primer_pairs",
-      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
-      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/primer_pairs",
-      "multivalued": true,
-      "alias": "primer_pairs",
-      "owner": "Submission",
-      "domain_of": [
-        "Submission"
-      ],
-      "range": "PrimerPair",
+      "range": "Oligo",
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -852,6 +838,46 @@
       ],
       "is_usage_slot": true,
       "usage_slot_name": "description",
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Oligo_name",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "description": "The name of a thing",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "is_a": "name",
+      "domain": "Oligo",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "identifier": true,
+      "alias": "name",
+      "owner": "Oligo",
+      "domain_of": [
+        "Oligo"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "name",
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "OligoPair_name",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "description": "The name of a thing",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "is_a": "name",
+      "domain": "OligoPair",
+      "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/name",
+      "identifier": true,
+      "alias": "name",
+      "owner": "OligoPair",
+      "domain_of": [
+        "OligoPair"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "name",
       "range": "string",
       "required": true,
       "@type": "SlotDefinition"
@@ -900,15 +926,31 @@
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Sequence",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slots": [
-        "plasmid_name",
-        "addgene_id",
+        "name",
         "category",
+        "description",
+        "type"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Sequence",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AddGenePlasmid",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/AddGenePlasmid",
+      "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "is_a": "Sequence",
+      "slots": [
+        "name",
+        "category",
+        "type",
+        "addgene_id",
         "resistance",
         "well",
         "description"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Sequence",
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/AddGenePlasmid",
       "unique_keys": [
         {
           "unique_key_name": "addgene_id_key",
@@ -950,20 +992,19 @@
       "@type": "ClassDefinition"
     },
     {
-      "name": "Primer",
-      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Primer",
+      "name": "Oligo",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Oligo",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slots": [
-        "primer__name",
-        "primer__sequence"
+        "Oligo_name",
+        "oligo__id",
+        "oligo__sequence"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "name",
-          "identifier": true,
-          "range": "string",
-          "required": true,
+          "name": "id",
+          "range": "integer",
           "@type": "SlotDefinition"
         },
         {
@@ -973,42 +1014,38 @@
           "@type": "SlotDefinition"
         }
       ],
-      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Primer",
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/Oligo",
       "@type": "ClassDefinition"
     },
     {
-      "name": "PrimerPair",
-      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/PrimerPair",
+      "name": "OligoPair",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/OligoPair",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
+      "is_a": "Sequence",
       "slots": [
         "category",
-        "primerPair__forward_primer",
-        "primerPair__reverse_primer",
-        "primerPair__name"
+        "description",
+        "type",
+        "oligoPair__forward_oligo",
+        "oligoPair__reverse_oligo",
+        "OligoPair_name"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "forward_primer",
-          "range": "Primer",
+          "name": "forward_oligo",
+          "range": "Oligo",
           "required": true,
           "@type": "SlotDefinition"
         },
         {
-          "name": "reverse_primer",
-          "range": "Primer",
-          "required": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "name",
-          "identifier": true,
-          "range": "string",
+          "name": "reverse_oligo",
+          "range": "Oligo",
           "required": true,
           "@type": "SlotDefinition"
         }
       ],
-      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/PrimerPair",
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/OligoPair",
       "@type": "ClassDefinition"
     },
     {
@@ -1049,8 +1086,7 @@
         "submission__sequences",
         "submission__categories",
         "submission__assemblies",
-        "submission__primers",
-        "submission__primer_pairs"
+        "submission__oligos"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1130,16 +1166,9 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "primers",
+          "name": "oligos",
           "multivalued": true,
-          "range": "Primer",
-          "inlined_as_list": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "primer_pairs",
-          "multivalued": true,
-          "range": "PrimerPair",
+          "range": "Oligo",
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         }
@@ -1151,9 +1180,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "linkml_assembly_submission.yaml",
-  "source_file_date": "2024-07-01T18:22:39",
-  "source_file_size": 5344,
-  "generation_date": "2024-07-01T18:24:06",
+  "source_file_date": "2024-07-02T11:39:53",
+  "source_file_size": 5456,
+  "generation_date": "2024-07-02T16:50:26",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/linkml_assembly_submission.context.jsonld",

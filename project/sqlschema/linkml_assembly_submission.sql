@@ -11,29 +11,38 @@
 --     * Slot: title Description: A title for the representation of the object
 --     * Slot: description Description: A description of the object
 -- # Class: "Sequence" Description: ""
---     * Slot: plasmid_name Description: 
---     * Slot: addgene_id Description: The Addgene ID for the plasmid
+--     * Slot: id Description: 
+--     * Slot: name Description: The name of a thing
 --     * Slot: category Description: 
+--     * Slot: description Description: A description of the object
+--     * Slot: type Description: The type of sequence
+--     * Slot: Submission_id Description: Autocreated FK slot
+-- # Class: "AddGenePlasmid" Description: ""
+--     * Slot: addgene_id Description: The Addgene ID for the plasmid
 --     * Slot: resistance Description: 
 --     * Slot: well Description: The well where a plasmid is located in a plate
 --     * Slot: description Description: A description of the object
---     * Slot: Submission_id Description: Autocreated FK slot
+--     * Slot: name Description: The name of a thing
+--     * Slot: category Description: 
+--     * Slot: type Description: The type of sequence
 -- # Class: "Submitter" Description: ""
 --     * Slot: id Description: 
 --     * Slot: full_name Description: The full name of the submitter, will be ignored if the name can be taken from ORCID
 --     * Slot: orcid Description: The ORCID of the submitter
 --     * Slot: github_username Description: The GitHub username of the submitter
 --     * Slot: Submission_id Description: Autocreated FK slot
--- # Class: "Primer" Description: ""
---     * Slot: name Description: 
+-- # Class: "Oligo" Description: ""
+--     * Slot: name Description: The name of a thing
+--     * Slot: id Description: 
 --     * Slot: sequence Description: 
 --     * Slot: Submission_id Description: Autocreated FK slot
--- # Class: "PrimerPair" Description: ""
+-- # Class: "OligoPair" Description: ""
+--     * Slot: forward_oligo Description: 
+--     * Slot: reverse_oligo Description: 
+--     * Slot: name Description: The name of a thing
 --     * Slot: category Description: 
---     * Slot: forward_primer Description: 
---     * Slot: reverse_primer Description: 
---     * Slot: name Description: 
---     * Slot: Submission_id Description: Autocreated FK slot
+--     * Slot: description Description: A description of the object
+--     * Slot: type Description: The type of sequence
 -- # Class: "Assembly" Description: ""
 --     * Slot: id Description: 
 --     * Slot: title Description: A title for the representation of the object
@@ -82,8 +91,9 @@ CREATE TABLE "Submitter" (
 	UNIQUE (github_username), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
-CREATE TABLE "Primer" (
+CREATE TABLE "Oligo" (
 	name TEXT NOT NULL, 
+	id INTEGER, 
 	sequence TEXT NOT NULL, 
 	"Submission_id" INTEGER, 
 	PRIMARY KEY (name), 
@@ -99,29 +109,39 @@ CREATE TABLE "Assembly" (
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
 CREATE TABLE "Sequence" (
-	plasmid_name TEXT, 
-	addgene_id TEXT NOT NULL, 
+	id INTEGER NOT NULL, 
+	name TEXT NOT NULL, 
 	category TEXT NOT NULL, 
-	resistance TEXT, 
-	well TEXT, 
 	description TEXT, 
+	type TEXT, 
 	"Submission_id" INTEGER, 
-	PRIMARY KEY (addgene_id), 
-	UNIQUE (addgene_id), 
+	PRIMARY KEY (id), 
 	FOREIGN KEY(category) REFERENCES "Category" (id), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
-CREATE TABLE "PrimerPair" (
-	category TEXT NOT NULL, 
-	forward_primer TEXT NOT NULL, 
-	reverse_primer TEXT NOT NULL, 
+CREATE TABLE "AddGenePlasmid" (
+	addgene_id TEXT NOT NULL, 
+	resistance TEXT, 
+	well TEXT, 
+	description TEXT, 
 	name TEXT NOT NULL, 
-	"Submission_id" INTEGER, 
+	category TEXT NOT NULL, 
+	type TEXT, 
+	PRIMARY KEY (addgene_id), 
+	UNIQUE (addgene_id), 
+	FOREIGN KEY(category) REFERENCES "Category" (id)
+);
+CREATE TABLE "OligoPair" (
+	forward_oligo TEXT NOT NULL, 
+	reverse_oligo TEXT NOT NULL, 
+	name TEXT NOT NULL, 
+	category TEXT NOT NULL, 
+	description TEXT, 
+	type TEXT, 
 	PRIMARY KEY (name), 
-	FOREIGN KEY(category) REFERENCES "Category" (id), 
-	FOREIGN KEY(forward_primer) REFERENCES "Primer" (name), 
-	FOREIGN KEY(reverse_primer) REFERENCES "Primer" (name), 
-	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
+	FOREIGN KEY(forward_oligo) REFERENCES "Oligo" (name), 
+	FOREIGN KEY(reverse_oligo) REFERENCES "Oligo" (name), 
+	FOREIGN KEY(category) REFERENCES "Category" (id)
 );
 CREATE TABLE "Assembly_fragment_order" (
 	"Assembly_id" INTEGER, 

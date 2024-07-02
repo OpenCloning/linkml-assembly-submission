@@ -1,5 +1,5 @@
 # Auto generated from linkml_assembly_submission.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-01T18:24:06
+# Generation date: 2024-07-02T16:50:26
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
@@ -22,7 +22,7 @@ from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.linkml_model.types import String
+from linkml_runtime.linkml_model.types import Integer, String
 
 metamodel_version = "1.7.0"
 version = None
@@ -75,15 +75,15 @@ class CategoryId(extended_str):
     pass
 
 
-class SequenceAddgeneId(extended_str):
+class AddGenePlasmidAddgeneId(extended_str):
     pass
 
 
-class PrimerName(extended_str):
+class OligoName(extended_str):
     pass
 
 
-class PrimerPairName(extended_str):
+class OligoPairName(extended_str):
     pass
 
 
@@ -166,9 +166,59 @@ class Sequence(YAMLRoot):
     class_name: ClassVar[str] = "Sequence"
     class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Sequence
 
-    addgene_id: Union[str, SequenceAddgeneId] = None
+    name: str = None
     category: Union[str, CategoryId] = None
-    plasmid_name: Optional[str] = None
+    description: Optional[str] = None
+    type: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self._is_empty(self.category):
+            self.MissingRequiredField("category")
+        if not isinstance(self.category, CategoryId):
+            self.category = CategoryId(self.category)
+
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        self.type = str(self.class_name)
+
+        super().__post_init__(**kwargs)
+
+
+    def __new__(cls, *args, **kwargs):
+
+        type_designator = "type"
+        if not type_designator in kwargs:
+            return super().__new__(cls,*args,**kwargs)
+        else:
+            type_designator_value = kwargs[type_designator]
+            target_cls = cls._class_for("class_name", type_designator_value)
+
+
+            if target_cls is None:
+                raise ValueError(f"Wrong type designator value: class {cls.__name__} "
+                                 f"has no subclass with ['class_name']='{kwargs[type_designator]}'")
+            return super().__new__(target_cls,*args,**kwargs)
+
+
+
+@dataclass
+class AddGenePlasmid(Sequence):
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["AddGenePlasmid"]
+    class_class_curie: ClassVar[str] = "linkml_assembly_submission:AddGenePlasmid"
+    class_name: ClassVar[str] = "AddGenePlasmid"
+    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.AddGenePlasmid
+
+    addgene_id: Union[str, AddGenePlasmidAddgeneId] = None
+    name: str = None
+    category: Union[str, CategoryId] = None
     resistance: Optional[str] = None
     well: Optional[str] = None
     description: Optional[str] = None
@@ -176,16 +226,8 @@ class Sequence(YAMLRoot):
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.addgene_id):
             self.MissingRequiredField("addgene_id")
-        if not isinstance(self.addgene_id, SequenceAddgeneId):
-            self.addgene_id = SequenceAddgeneId(self.addgene_id)
-
-        if self._is_empty(self.category):
-            self.MissingRequiredField("category")
-        if not isinstance(self.category, CategoryId):
-            self.category = CategoryId(self.category)
-
-        if self.plasmid_name is not None and not isinstance(self.plasmid_name, str):
-            self.plasmid_name = str(self.plasmid_name)
+        if not isinstance(self.addgene_id, AddGenePlasmidAddgeneId):
+            self.addgene_id = AddGenePlasmidAddgeneId(self.addgene_id)
 
         if self.resistance is not None and not isinstance(self.resistance, str):
             self.resistance = str(self.resistance)
@@ -197,6 +239,7 @@ class Sequence(YAMLRoot):
             self.description = str(self.description)
 
         super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
 
 
 @dataclass
@@ -228,67 +271,67 @@ class Submitter(YAMLRoot):
 
 
 @dataclass
-class Primer(YAMLRoot):
+class Oligo(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["Primer"]
-    class_class_curie: ClassVar[str] = "linkml_assembly_submission:Primer"
-    class_name: ClassVar[str] = "Primer"
-    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Primer
+    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["Oligo"]
+    class_class_curie: ClassVar[str] = "linkml_assembly_submission:Oligo"
+    class_name: ClassVar[str] = "Oligo"
+    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.Oligo
 
-    name: Union[str, PrimerName] = None
+    name: Union[str, OligoName] = None
     sequence: Union[str, DnaSequence] = None
+    id: Optional[int] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
-        if not isinstance(self.name, PrimerName):
-            self.name = PrimerName(self.name)
+        if not isinstance(self.name, OligoName):
+            self.name = OligoName(self.name)
 
         if self._is_empty(self.sequence):
             self.MissingRequiredField("sequence")
         if not isinstance(self.sequence, DnaSequence):
             self.sequence = DnaSequence(self.sequence)
 
+        if self.id is not None and not isinstance(self.id, int):
+            self.id = int(self.id)
+
         super().__post_init__(**kwargs)
 
 
 @dataclass
-class PrimerPair(YAMLRoot):
+class OligoPair(Sequence):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["PrimerPair"]
-    class_class_curie: ClassVar[str] = "linkml_assembly_submission:PrimerPair"
-    class_name: ClassVar[str] = "PrimerPair"
-    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.PrimerPair
+    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["OligoPair"]
+    class_class_curie: ClassVar[str] = "linkml_assembly_submission:OligoPair"
+    class_name: ClassVar[str] = "OligoPair"
+    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.OligoPair
 
-    name: Union[str, PrimerPairName] = None
+    name: Union[str, OligoPairName] = None
     category: Union[str, CategoryId] = None
-    forward_primer: Union[str, PrimerName] = None
-    reverse_primer: Union[str, PrimerName] = None
+    forward_oligo: Union[str, OligoName] = None
+    reverse_oligo: Union[str, OligoName] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
-        if not isinstance(self.name, PrimerPairName):
-            self.name = PrimerPairName(self.name)
+        if not isinstance(self.name, OligoPairName):
+            self.name = OligoPairName(self.name)
 
-        if self._is_empty(self.category):
-            self.MissingRequiredField("category")
-        if not isinstance(self.category, CategoryId):
-            self.category = CategoryId(self.category)
+        if self._is_empty(self.forward_oligo):
+            self.MissingRequiredField("forward_oligo")
+        if not isinstance(self.forward_oligo, OligoName):
+            self.forward_oligo = OligoName(self.forward_oligo)
 
-        if self._is_empty(self.forward_primer):
-            self.MissingRequiredField("forward_primer")
-        if not isinstance(self.forward_primer, PrimerName):
-            self.forward_primer = PrimerName(self.forward_primer)
-
-        if self._is_empty(self.reverse_primer):
-            self.MissingRequiredField("reverse_primer")
-        if not isinstance(self.reverse_primer, PrimerName):
-            self.reverse_primer = PrimerName(self.reverse_primer)
+        if self._is_empty(self.reverse_oligo):
+            self.MissingRequiredField("reverse_oligo")
+        if not isinstance(self.reverse_oligo, OligoName):
+            self.reverse_oligo = OligoName(self.reverse_oligo)
 
         super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
 
 
 @dataclass
@@ -335,11 +378,10 @@ class Submission(YAMLRoot):
 
     submitters: Union[Union[dict, Submitter], List[Union[dict, Submitter]]] = None
     kit: Union[dict, Kit] = None
-    sequences: Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]] = empty_dict()
+    sequences: Union[Union[dict, Sequence], List[Union[dict, Sequence]]] = None
     categories: Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]] = empty_dict()
     assemblies: Union[Union[dict, Assembly], List[Union[dict, Assembly]]] = None
-    primers: Optional[Union[Dict[Union[str, PrimerName], Union[dict, Primer]], List[Union[dict, Primer]]]] = empty_dict()
-    primer_pairs: Optional[Union[Dict[Union[str, PrimerPairName], Union[dict, PrimerPair]], List[Union[dict, PrimerPair]]]] = empty_dict()
+    oligos: Optional[Union[Dict[Union[str, OligoName], Union[dict, Oligo]], List[Union[dict, Oligo]]]] = empty_dict()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.submitters):
@@ -355,7 +397,9 @@ class Submission(YAMLRoot):
 
         if self._is_empty(self.sequences):
             self.MissingRequiredField("sequences")
-        self._normalize_inlined_as_list(slot_name="sequences", slot_type=Sequence, key_name="addgene_id", keyed=True)
+        if not isinstance(self.sequences, list):
+            self.sequences = [self.sequences] if self.sequences is not None else []
+        self.sequences = [v if isinstance(v, Sequence) else Sequence(**as_dict(v)) for v in self.sequences]
 
         if self._is_empty(self.categories):
             self.MissingRequiredField("categories")
@@ -367,9 +411,7 @@ class Submission(YAMLRoot):
             self.assemblies = [self.assemblies] if self.assemblies is not None else []
         self.assemblies = [v if isinstance(v, Assembly) else Assembly(**as_dict(v)) for v in self.assemblies]
 
-        self._normalize_inlined_as_list(slot_name="primers", slot_type=Primer, key_name="name", keyed=True)
-
-        self._normalize_inlined_as_list(slot_name="primer_pairs", slot_type=PrimerPair, key_name="name", keyed=True)
+        self._normalize_inlined_as_list(slot_name="oligos", slot_type=Oligo, key_name="name", keyed=True)
 
         super().__post_init__(**kwargs)
 
@@ -402,8 +444,8 @@ slots.addgene_url = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, name="addge
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, domain=None, range=Union[str, HttpsIdentifier],
                    pattern=re.compile(r'^https://www.addgene.org/.+$'))
 
-slots.plasmid_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.plasmid_name, name="plasmid_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('plasmid_name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.plasmid_name, domain=None, range=Optional[str])
+slots.name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.name, domain=None, range=str)
 
 slots.addgene_id = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.addgene_id, name="addgene_id", curie=LINKML_ASSEMBLY_SUBMISSION.curie('addgene_id'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_id, domain=None, range=URIRef,
@@ -429,20 +471,20 @@ slots.github_username = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.github_username, nam
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.github_username, domain=None, range=Optional[str],
                    pattern=re.compile(r'^[a-zA-Z0-9-]+$'))
 
-slots.primer__name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="primer__name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__name, domain=None, range=URIRef)
+slots.type = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.type, name="type", curie=LINKML_ASSEMBLY_SUBMISSION.curie('type'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.type, domain=None, range=Optional[str])
 
-slots.primer__sequence = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequence, name="primer__sequence", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequence'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primer__sequence, domain=None, range=Union[str, DnaSequence])
+slots.oligo__id = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.id, name="oligo__id", curie=LINKML_ASSEMBLY_SUBMISSION.curie('id'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligo__id, domain=None, range=Optional[int])
 
-slots.primerPair__forward_primer = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.forward_primer, name="primerPair__forward_primer", curie=LINKML_ASSEMBLY_SUBMISSION.curie('forward_primer'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primerPair__forward_primer, domain=None, range=Union[str, PrimerName])
+slots.oligo__sequence = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequence, name="oligo__sequence", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequence'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligo__sequence, domain=None, range=Union[str, DnaSequence])
 
-slots.primerPair__reverse_primer = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.reverse_primer, name="primerPair__reverse_primer", curie=LINKML_ASSEMBLY_SUBMISSION.curie('reverse_primer'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primerPair__reverse_primer, domain=None, range=Union[str, PrimerName])
+slots.oligoPair__forward_oligo = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.forward_oligo, name="oligoPair__forward_oligo", curie=LINKML_ASSEMBLY_SUBMISSION.curie('forward_oligo'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligoPair__forward_oligo, domain=None, range=Union[str, OligoName])
 
-slots.primerPair__name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="primerPair__name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.primerPair__name, domain=None, range=URIRef)
+slots.oligoPair__reverse_oligo = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.reverse_oligo, name="oligoPair__reverse_oligo", curie=LINKML_ASSEMBLY_SUBMISSION.curie('reverse_oligo'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligoPair__reverse_oligo, domain=None, range=Union[str, OligoName])
 
 slots.assembly__fragment_order = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.fragment_order, name="assembly__fragment_order", curie=LINKML_ASSEMBLY_SUBMISSION.curie('fragment_order'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order, domain=None, range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]])
@@ -458,7 +500,7 @@ slots.submission__kit = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.kit, name="submissio
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__kit, domain=None, range=Union[dict, Kit])
 
 slots.submission__sequences = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequences, name="submission__sequences", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequences'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__sequences, domain=None, range=Union[Dict[Union[str, SequenceAddgeneId], Union[dict, Sequence]], List[Union[dict, Sequence]]])
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__sequences, domain=None, range=Union[Union[dict, Sequence], List[Union[dict, Sequence]]])
 
 slots.submission__categories = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.categories, name="submission__categories", curie=LINKML_ASSEMBLY_SUBMISSION.curie('categories'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__categories, domain=None, range=Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]])
@@ -466,11 +508,14 @@ slots.submission__categories = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.categories, n
 slots.submission__assemblies = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.assemblies, name="submission__assemblies", curie=LINKML_ASSEMBLY_SUBMISSION.curie('assemblies'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]])
 
-slots.submission__primers = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.primers, name="submission__primers", curie=LINKML_ASSEMBLY_SUBMISSION.curie('primers'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__primers, domain=None, range=Optional[Union[Dict[Union[str, PrimerName], Union[dict, Primer]], List[Union[dict, Primer]]]])
-
-slots.submission__primer_pairs = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.primer_pairs, name="submission__primer_pairs", curie=LINKML_ASSEMBLY_SUBMISSION.curie('primer_pairs'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__primer_pairs, domain=None, range=Optional[Union[Dict[Union[str, PrimerPairName], Union[dict, PrimerPair]], List[Union[dict, PrimerPair]]]])
+slots.submission__oligos = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.oligos, name="submission__oligos", curie=LINKML_ASSEMBLY_SUBMISSION.curie('oligos'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__oligos, domain=None, range=Optional[Union[Dict[Union[str, OligoName], Union[dict, Oligo]], List[Union[dict, Oligo]]]])
 
 slots.Kit_description = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.description, name="Kit_description", curie=LINKML_ASSEMBLY_SUBMISSION.curie('description'),
                    model_uri=LINKML_ASSEMBLY_SUBMISSION.Kit_description, domain=Kit, range=str)
+
+slots.Oligo_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="Oligo_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.Oligo_name, domain=Oligo, range=Union[str, OligoName])
+
+slots.OligoPair_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="OligoPair_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
+                   model_uri=LINKML_ASSEMBLY_SUBMISSION.OligoPair_name, domain=OligoPair, range=Union[str, OligoPairName])

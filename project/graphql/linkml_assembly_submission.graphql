@@ -1,4 +1,15 @@
 # metamodel_version: 1.7.0
+type AddGenePlasmid
+  {
+    name: String!
+    category: Category!
+    type: String
+    addgeneId: String!
+    resistance: String
+    well: String
+    description: String
+  }
+
 type Assembly
   {
     title: String!
@@ -23,28 +34,29 @@ type Kit
     description: String!
   }
 
-type Primer
+type Oligo
   {
     name: String!
+    id: Integer
     sequence: DnaSequence!
   }
 
-type PrimerPair
+type OligoPair
   {
     category: Category!
-    forwardPrimer: Primer!
-    reversePrimer: Primer!
+    description: String
+    type: String
+    forwardOligo: Oligo!
+    reverseOligo: Oligo!
     name: String!
   }
 
 type Sequence
   {
-    plasmidName: String
-    addgeneId: String!
+    name: String!
     category: Category!
-    resistance: String
-    well: String
     description: String
+    type: String
   }
 
 type Submission
@@ -54,8 +66,7 @@ type Submission
     sequences: [Sequence]!
     categories: [Category]!
     assemblies: [Assembly]!
-    primers: [Primer]
-    primerPairs: [PrimerPair]
+    oligos: [Oligo]
   }
 
 type Submitter
