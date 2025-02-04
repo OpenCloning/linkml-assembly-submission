@@ -3,7 +3,7 @@
 # Schema: linkml-assembly-submission
 #
 # id: https://w3id.org/genestorian/linkml-assembly-submission
-# description: A linkml model for submissions of assemblies for ShareYourCloning templates
+# description: A linkml model for submissions of assemblies for OpenCloning templates
 # license: MIT
 
 import dataclasses
@@ -12,12 +12,23 @@ from jsonasobj2 import JsonObj, as_dict
 from typing import Optional, List, Union, Dict, ClassVar, Any
 from dataclasses import dataclass
 from datetime import date, datetime
-from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
+from linkml_runtime.linkml_model.meta import (
+    EnumDefinition,
+    PermissibleValue,
+    PvFormulaOptions,
+)
 
 from linkml_runtime.utils.slot import Slot
 from linkml_runtime.utils.metamodelcore import empty_list, empty_dict, bnode
-from linkml_runtime.utils.yamlutils import YAMLRoot, extended_str, extended_float, extended_int
-from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
+from linkml_runtime.utils.yamlutils import (
+    YAMLRoot,
+    extended_str,
+    extended_float,
+    extended_int,
+)
+from linkml_runtime.utils.dataclass_extensions_376 import (
+    dataclasses_init_fn_with_kwargs,
+)
 from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
@@ -31,13 +42,16 @@ version = None
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 
 # Namespaces
-PATO = CurieNamespace('PATO', 'http://purl.obolibrary.org/obo/PATO_')
-BIOLINK = CurieNamespace('biolink', 'https://w3id.org/biolink/')
-EXAMPLE = CurieNamespace('example', 'https://example.org/')
-LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
-LINKML_ASSEMBLY_SUBMISSION = CurieNamespace('linkml_assembly_submission', 'https://w3id.org/genestorian/linkml-assembly-submission/')
-SCHEMA = CurieNamespace('schema', 'http://schema.org/')
-XSD = CurieNamespace('xsd', 'http://www.w3.org/2001/XMLSchema#')
+PATO = CurieNamespace("PATO", "http://purl.obolibrary.org/obo/PATO_")
+BIOLINK = CurieNamespace("biolink", "https://w3id.org/biolink/")
+EXAMPLE = CurieNamespace("example", "https://example.org/")
+LINKML = CurieNamespace("linkml", "https://w3id.org/linkml/")
+LINKML_ASSEMBLY_SUBMISSION = CurieNamespace(
+    "linkml_assembly_submission",
+    "https://w3id.org/genestorian/linkml-assembly-submission/",
+)
+SCHEMA = CurieNamespace("schema", "http://schema.org/")
+XSD = CurieNamespace("xsd", "http://www.w3.org/2001/XMLSchema#")
 DEFAULT_ = LINKML_ASSEMBLY_SUBMISSION
 
 
@@ -189,22 +203,21 @@ class Sequence(YAMLRoot):
 
         super().__post_init__(**kwargs)
 
-
     def __new__(cls, *args, **kwargs):
 
         type_designator = "type"
         if not type_designator in kwargs:
-            return super().__new__(cls,*args,**kwargs)
+            return super().__new__(cls, *args, **kwargs)
         else:
             type_designator_value = kwargs[type_designator]
             target_cls = cls._class_for("class_name", type_designator_value)
 
-
             if target_cls is None:
-                raise ValueError(f"Wrong type designator value: class {cls.__name__} "
-                                 f"has no subclass with ['class_name']='{kwargs[type_designator]}'")
-            return super().__new__(target_cls,*args,**kwargs)
-
+                raise ValueError(
+                    f"Wrong type designator value: class {cls.__name__} "
+                    f"has no subclass with ['class_name']='{kwargs[type_designator]}'"
+                )
+            return super().__new__(target_cls, *args, **kwargs)
 
 
 @dataclass
@@ -264,7 +277,9 @@ class Submitter(YAMLRoot):
         if self.orcid is not None and not isinstance(self.orcid, OrcidIdentifier):
             self.orcid = OrcidIdentifier(self.orcid)
 
-        if self.github_username is not None and not isinstance(self.github_username, str):
+        if self.github_username is not None and not isinstance(
+            self.github_username, str
+        ):
             self.github_username = str(self.github_username)
 
         super().__post_init__(**kwargs)
@@ -345,7 +360,9 @@ class Assembly(YAMLRoot):
 
     title: str = None
     description: Optional[str] = None
-    fragment_order: Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]] = empty_list()
+    fragment_order: Optional[
+        Union[Union[str, CategoryId], List[Union[str, CategoryId]]]
+    ] = empty_list()
     template_file: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -358,8 +375,13 @@ class Assembly(YAMLRoot):
             self.description = str(self.description)
 
         if not isinstance(self.fragment_order, list):
-            self.fragment_order = [self.fragment_order] if self.fragment_order is not None else []
-        self.fragment_order = [v if isinstance(v, CategoryId) else CategoryId(v) for v in self.fragment_order]
+            self.fragment_order = (
+                [self.fragment_order] if self.fragment_order is not None else []
+            )
+        self.fragment_order = [
+            v if isinstance(v, CategoryId) else CategoryId(v)
+            for v in self.fragment_order
+        ]
 
         if self.template_file is not None and not isinstance(self.template_file, str):
             self.template_file = str(self.template_file)
@@ -379,16 +401,23 @@ class Submission(YAMLRoot):
     submitters: Union[Union[dict, Submitter], List[Union[dict, Submitter]]] = None
     kit: Union[dict, Kit] = None
     sequences: Union[Union[dict, Sequence], List[Union[dict, Sequence]]] = None
-    categories: Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]] = empty_dict()
+    categories: Union[
+        Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]
+    ] = empty_dict()
     assemblies: Union[Union[dict, Assembly], List[Union[dict, Assembly]]] = None
-    oligos: Optional[Union[Dict[Union[str, OligoName], Union[dict, Oligo]], List[Union[dict, Oligo]]]] = empty_dict()
+    oligos: Optional[
+        Union[Dict[Union[str, OligoName], Union[dict, Oligo]], List[Union[dict, Oligo]]]
+    ] = empty_dict()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.submitters):
             self.MissingRequiredField("submitters")
         if not isinstance(self.submitters, list):
             self.submitters = [self.submitters] if self.submitters is not None else []
-        self.submitters = [v if isinstance(v, Submitter) else Submitter(**as_dict(v)) for v in self.submitters]
+        self.submitters = [
+            v if isinstance(v, Submitter) else Submitter(**as_dict(v))
+            for v in self.submitters
+        ]
 
         if self._is_empty(self.kit):
             self.MissingRequiredField("kit")
@@ -399,19 +428,29 @@ class Submission(YAMLRoot):
             self.MissingRequiredField("sequences")
         if not isinstance(self.sequences, list):
             self.sequences = [self.sequences] if self.sequences is not None else []
-        self.sequences = [v if isinstance(v, Sequence) else Sequence(**as_dict(v)) for v in self.sequences]
+        self.sequences = [
+            v if isinstance(v, Sequence) else Sequence(**as_dict(v))
+            for v in self.sequences
+        ]
 
         if self._is_empty(self.categories):
             self.MissingRequiredField("categories")
-        self._normalize_inlined_as_list(slot_name="categories", slot_type=Category, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(
+            slot_name="categories", slot_type=Category, key_name="id", keyed=True
+        )
 
         if self._is_empty(self.assemblies):
             self.MissingRequiredField("assemblies")
         if not isinstance(self.assemblies, list):
             self.assemblies = [self.assemblies] if self.assemblies is not None else []
-        self.assemblies = [v if isinstance(v, Assembly) else Assembly(**as_dict(v)) for v in self.assemblies]
+        self.assemblies = [
+            v if isinstance(v, Assembly) else Assembly(**as_dict(v))
+            for v in self.assemblies
+        ]
 
-        self._normalize_inlined_as_list(slot_name="oligos", slot_type=Oligo, key_name="name", keyed=True)
+        self._normalize_inlined_as_list(
+            slot_name="oligos", slot_type=Oligo, key_name="name", keyed=True
+        )
 
         super().__post_init__(**kwargs)
 
@@ -423,99 +462,284 @@ class Submission(YAMLRoot):
 class slots:
     pass
 
-slots.id = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.id, name="id", curie=LINKML_ASSEMBLY_SUBMISSION.curie('id'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.id, domain=None, range=URIRef)
 
-slots.title = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.title, name="title", curie=LINKML_ASSEMBLY_SUBMISSION.curie('title'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.title, domain=None, range=str)
+slots.id = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.id,
+    name="id",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("id"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.id,
+    domain=None,
+    range=URIRef,
+)
 
-slots.description = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.description, name="description", curie=LINKML_ASSEMBLY_SUBMISSION.curie('description'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.description, domain=None, range=Optional[str])
+slots.title = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.title,
+    name="title",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("title"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.title,
+    domain=None,
+    range=str,
+)
 
-slots.image = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.image, name="image", curie=LINKML_ASSEMBLY_SUBMISSION.curie('image'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.image, domain=None, range=Optional[str],
-                   pattern=re.compile(r'^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|gif|svg)$'))
+slots.description = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.description,
+    name="description",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("description"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.description,
+    domain=None,
+    range=Optional[str],
+)
 
-slots.pmid = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.pmid, name="pmid", curie=LINKML_ASSEMBLY_SUBMISSION.curie('pmid'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.pmid, domain=None, range=Optional[Union[str, PMIDIdentifier]],
-                   pattern=re.compile(r'^PMID:\d+$'))
+slots.image = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.image,
+    name="image",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("image"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.image,
+    domain=None,
+    range=Optional[str],
+    pattern=re.compile(r"^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|gif|svg)$"),
+)
 
-slots.addgene_url = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, name="addgene_url", curie=LINKML_ASSEMBLY_SUBMISSION.curie('addgene_url'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url, domain=None, range=Union[str, HttpsIdentifier],
-                   pattern=re.compile(r'^https://www.addgene.org/.+$'))
+slots.pmid = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.pmid,
+    name="pmid",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("pmid"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.pmid,
+    domain=None,
+    range=Optional[Union[str, PMIDIdentifier]],
+    pattern=re.compile(r"^PMID:\d+$"),
+)
 
-slots.name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.name, domain=None, range=str)
+slots.addgene_url = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url,
+    name="addgene_url",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("addgene_url"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_url,
+    domain=None,
+    range=Union[str, HttpsIdentifier],
+    pattern=re.compile(r"^https://www.addgene.org/.+$"),
+)
 
-slots.addgene_id = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.addgene_id, name="addgene_id", curie=LINKML_ASSEMBLY_SUBMISSION.curie('addgene_id'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_id, domain=None, range=URIRef,
-                   pattern=re.compile(r'^\d+$'))
+slots.name = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.name,
+    name="name",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("name"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.name,
+    domain=None,
+    range=str,
+)
 
-slots.category = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.category, name="category", curie=LINKML_ASSEMBLY_SUBMISSION.curie('category'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.category, domain=None, range=Union[str, CategoryId])
+slots.addgene_id = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.addgene_id,
+    name="addgene_id",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("addgene_id"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.addgene_id,
+    domain=None,
+    range=URIRef,
+    pattern=re.compile(r"^\d+$"),
+)
 
-slots.resistance = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.resistance, name="resistance", curie=LINKML_ASSEMBLY_SUBMISSION.curie('resistance'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.resistance, domain=None, range=Optional[str])
+slots.category = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.category,
+    name="category",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("category"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.category,
+    domain=None,
+    range=Union[str, CategoryId],
+)
 
-slots.well = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.well, name="well", curie=LINKML_ASSEMBLY_SUBMISSION.curie('well'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.well, domain=None, range=Optional[str])
+slots.resistance = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.resistance,
+    name="resistance",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("resistance"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.resistance,
+    domain=None,
+    range=Optional[str],
+)
 
-slots.full_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.full_name, name="full_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('full_name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.full_name, domain=None, range=str)
+slots.well = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.well,
+    name="well",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("well"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.well,
+    domain=None,
+    range=Optional[str],
+)
 
-slots.orcid = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.orcid, name="orcid", curie=LINKML_ASSEMBLY_SUBMISSION.curie('orcid'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.orcid, domain=None, range=Optional[Union[str, OrcidIdentifier]],
-                   pattern=re.compile(r'^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$'))
+slots.full_name = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.full_name,
+    name="full_name",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("full_name"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.full_name,
+    domain=None,
+    range=str,
+)
 
-slots.github_username = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.github_username, name="github_username", curie=LINKML_ASSEMBLY_SUBMISSION.curie('github_username'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.github_username, domain=None, range=Optional[str],
-                   pattern=re.compile(r'^[a-zA-Z0-9-]+$'))
+slots.orcid = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.orcid,
+    name="orcid",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("orcid"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.orcid,
+    domain=None,
+    range=Optional[Union[str, OrcidIdentifier]],
+    pattern=re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$"),
+)
 
-slots.type = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.type, name="type", curie=LINKML_ASSEMBLY_SUBMISSION.curie('type'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.type, domain=None, range=Optional[str])
+slots.github_username = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.github_username,
+    name="github_username",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("github_username"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.github_username,
+    domain=None,
+    range=Optional[str],
+    pattern=re.compile(r"^[a-zA-Z0-9-]+$"),
+)
 
-slots.oligo__id = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.id, name="oligo__id", curie=LINKML_ASSEMBLY_SUBMISSION.curie('id'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligo__id, domain=None, range=Optional[int])
+slots.type = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.type,
+    name="type",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("type"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.type,
+    domain=None,
+    range=Optional[str],
+)
 
-slots.oligo__sequence = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequence, name="oligo__sequence", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequence'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligo__sequence, domain=None, range=Union[str, DnaSequence])
+slots.oligo__id = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.id,
+    name="oligo__id",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("id"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.oligo__id,
+    domain=None,
+    range=Optional[int],
+)
 
-slots.oligoPair__forward_oligo = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.forward_oligo, name="oligoPair__forward_oligo", curie=LINKML_ASSEMBLY_SUBMISSION.curie('forward_oligo'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligoPair__forward_oligo, domain=None, range=Union[str, OligoName])
+slots.oligo__sequence = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.sequence,
+    name="oligo__sequence",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("sequence"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.oligo__sequence,
+    domain=None,
+    range=Union[str, DnaSequence],
+)
 
-slots.oligoPair__reverse_oligo = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.reverse_oligo, name="oligoPair__reverse_oligo", curie=LINKML_ASSEMBLY_SUBMISSION.curie('reverse_oligo'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.oligoPair__reverse_oligo, domain=None, range=Union[str, OligoName])
+slots.oligoPair__forward_oligo = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.forward_oligo,
+    name="oligoPair__forward_oligo",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("forward_oligo"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.oligoPair__forward_oligo,
+    domain=None,
+    range=Union[str, OligoName],
+)
 
-slots.assembly__fragment_order = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.fragment_order, name="assembly__fragment_order", curie=LINKML_ASSEMBLY_SUBMISSION.curie('fragment_order'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order, domain=None, range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]])
+slots.oligoPair__reverse_oligo = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.reverse_oligo,
+    name="oligoPair__reverse_oligo",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("reverse_oligo"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.oligoPair__reverse_oligo,
+    domain=None,
+    range=Union[str, OligoName],
+)
 
-slots.assembly__template_file = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.template_file, name="assembly__template_file", curie=LINKML_ASSEMBLY_SUBMISSION.curie('template_file'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__template_file, domain=None, range=Optional[str],
-                   pattern=re.compile(r'^.*.json$'))
+slots.assembly__fragment_order = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.fragment_order,
+    name="assembly__fragment_order",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("fragment_order"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__fragment_order,
+    domain=None,
+    range=Optional[Union[Union[str, CategoryId], List[Union[str, CategoryId]]]],
+)
 
-slots.submission__submitters = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.submitters, name="submission__submitters", curie=LINKML_ASSEMBLY_SUBMISSION.curie('submitters'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__submitters, domain=None, range=Union[Union[dict, Submitter], List[Union[dict, Submitter]]])
+slots.assembly__template_file = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.template_file,
+    name="assembly__template_file",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("template_file"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.assembly__template_file,
+    domain=None,
+    range=Optional[str],
+    pattern=re.compile(r"^.*.json$"),
+)
 
-slots.submission__kit = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.kit, name="submission__kit", curie=LINKML_ASSEMBLY_SUBMISSION.curie('kit'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__kit, domain=None, range=Union[dict, Kit])
+slots.submission__submitters = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.submitters,
+    name="submission__submitters",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("submitters"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__submitters,
+    domain=None,
+    range=Union[Union[dict, Submitter], List[Union[dict, Submitter]]],
+)
 
-slots.submission__sequences = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.sequences, name="submission__sequences", curie=LINKML_ASSEMBLY_SUBMISSION.curie('sequences'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__sequences, domain=None, range=Union[Union[dict, Sequence], List[Union[dict, Sequence]]])
+slots.submission__kit = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.kit,
+    name="submission__kit",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("kit"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__kit,
+    domain=None,
+    range=Union[dict, Kit],
+)
 
-slots.submission__categories = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.categories, name="submission__categories", curie=LINKML_ASSEMBLY_SUBMISSION.curie('categories'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__categories, domain=None, range=Union[Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]])
+slots.submission__sequences = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.sequences,
+    name="submission__sequences",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("sequences"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__sequences,
+    domain=None,
+    range=Union[Union[dict, Sequence], List[Union[dict, Sequence]]],
+)
 
-slots.submission__assemblies = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.assemblies, name="submission__assemblies", curie=LINKML_ASSEMBLY_SUBMISSION.curie('assemblies'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies, domain=None, range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]])
+slots.submission__categories = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.categories,
+    name="submission__categories",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("categories"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__categories,
+    domain=None,
+    range=Union[
+        Dict[Union[str, CategoryId], Union[dict, Category]], List[Union[dict, Category]]
+    ],
+)
 
-slots.submission__oligos = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.oligos, name="submission__oligos", curie=LINKML_ASSEMBLY_SUBMISSION.curie('oligos'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__oligos, domain=None, range=Optional[Union[Dict[Union[str, OligoName], Union[dict, Oligo]], List[Union[dict, Oligo]]]])
+slots.submission__assemblies = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.assemblies,
+    name="submission__assemblies",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("assemblies"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__assemblies,
+    domain=None,
+    range=Union[Union[dict, Assembly], List[Union[dict, Assembly]]],
+)
 
-slots.Kit_description = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.description, name="Kit_description", curie=LINKML_ASSEMBLY_SUBMISSION.curie('description'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.Kit_description, domain=Kit, range=str)
+slots.submission__oligos = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.oligos,
+    name="submission__oligos",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("oligos"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.submission__oligos,
+    domain=None,
+    range=Optional[
+        Union[Dict[Union[str, OligoName], Union[dict, Oligo]], List[Union[dict, Oligo]]]
+    ],
+)
 
-slots.Oligo_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="Oligo_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.Oligo_name, domain=Oligo, range=Union[str, OligoName])
+slots.Kit_description = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.description,
+    name="Kit_description",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("description"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.Kit_description,
+    domain=Kit,
+    range=str,
+)
 
-slots.OligoPair_name = Slot(uri=LINKML_ASSEMBLY_SUBMISSION.name, name="OligoPair_name", curie=LINKML_ASSEMBLY_SUBMISSION.curie('name'),
-                   model_uri=LINKML_ASSEMBLY_SUBMISSION.OligoPair_name, domain=OligoPair, range=Union[str, OligoPairName])
+slots.Oligo_name = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.name,
+    name="Oligo_name",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("name"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.Oligo_name,
+    domain=Oligo,
+    range=Union[str, OligoName],
+)
+
+slots.OligoPair_name = Slot(
+    uri=LINKML_ASSEMBLY_SUBMISSION.name,
+    name="OligoPair_name",
+    curie=LINKML_ASSEMBLY_SUBMISSION.curie("name"),
+    model_uri=LINKML_ASSEMBLY_SUBMISSION.OligoPair_name,
+    domain=OligoPair,
+    range=Union[str, OligoPairName],
+)

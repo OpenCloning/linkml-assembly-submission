@@ -1,6 +1,6 @@
 {
   "name": "linkml-assembly-submission",
-  "description": "A linkml model for submissions of assemblies for ShareYourCloning templates",
+  "description": "A linkml model for submissions of assemblies for OpenCloning templates",
   "title": "linkml-assembly-submission",
   "see_also": [
     "https://genestorian.github.io/linkml-assembly-submission"

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "linkml_assembly_submission"
 version = "0.1.0"
-description = "A linkml model for submissions of assemblies for ShareYourCloning templates"
+description = "A linkml model for submissions of assemblies for OpenCloning templates"
 authors = ["Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>"]
 license = "MIT"
 readme = "README.md"

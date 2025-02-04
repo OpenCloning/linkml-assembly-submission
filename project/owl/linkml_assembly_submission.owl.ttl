@@ -573,7 +573,7 @@ linkml_assembly_submission:description a owl:ObjectProperty,
     dcterms:license "MIT" ;
     dcterms:title "linkml-assembly-submission" ;
     rdfs:seeAlso <https://genestorian.github.io/linkml-assembly-submission> ;
-    skos:definition "A linkml model for submissions of assemblies for ShareYourCloning templates" .
+    skos:definition "A linkml model for submissions of assemblies for OpenCloning templates" .
 
 [] a owl:Restriction ;
     rdfs:subClassOf linkml_assembly_submission:OligoPair ;

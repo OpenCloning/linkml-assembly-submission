@@ -8,7 +8,7 @@
       "__project_slug": "linkml_assembly_submission",
       "github_org": "genestorian",
       "__source_path": "src/linkml_assembly_submission/schema/linkml_assembly_submission.yaml",
-      "project_description": "A linkml model for submissions of assemblies for ShareYourCloning templates",
+      "project_description": "A linkml model for submissions of assemblies for OpenCloning templates",
       "full_name": "Manuel Lera-Ramirez",
       "email": "manuel.lera-ramirez@ucl.ac.uk",
       "__author": "Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>",

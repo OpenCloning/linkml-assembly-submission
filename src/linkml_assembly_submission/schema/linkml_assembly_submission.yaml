@@ -3,7 +3,7 @@ id: https://w3id.org/genestorian/linkml-assembly-submission
 name: linkml-assembly-submission
 title: linkml-assembly-submission
 description: |-
-  A linkml model for submissions of assemblies for ShareYourCloning templates
+  A linkml model for submissions of assemblies for OpenCloning templates
 license: MIT
 see_also:
   - https://genestorian.github.io/linkml-assembly-submission
