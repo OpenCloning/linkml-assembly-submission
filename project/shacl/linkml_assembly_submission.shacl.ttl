@@ -3,7 +3,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-linkml_assembly_submission:AddGenePlasmid a sh:NodeShape ;
+linkml_assembly_submission:AddgenePlasmid a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
@@ -49,7 +49,7 @@ linkml_assembly_submission:AddGenePlasmid a sh:NodeShape ;
             sh:order 0 ;
             sh:path linkml_assembly_submission:addgene_id ;
             sh:pattern "^\\d+$" ] ;
-    sh:targetClass linkml_assembly_submission:AddGenePlasmid .
+    sh:targetClass linkml_assembly_submission:AddgenePlasmid .
 
 linkml_assembly_submission:OligoPair a sh:NodeShape ;
     sh:closed true ;

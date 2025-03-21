@@ -100,8 +100,8 @@
       "well": {
          "@id": "well"
       },
-      "AddGenePlasmid": {
-         "@id": "AddGenePlasmid"
+      "AddgenePlasmid": {
+         "@id": "AddgenePlasmid"
       },
       "Assembly": {
          "@id": "Assembly"

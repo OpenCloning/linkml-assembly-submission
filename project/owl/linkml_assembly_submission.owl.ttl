@@ -184,9 +184,9 @@ linkml_assembly_submission:dna_sequence a owl:Class,
         linkml:TypeDefinition ;
     rdfs:subClassOf linkml:String .
 
-linkml_assembly_submission:AddGenePlasmid a owl:Class,
+linkml_assembly_submission:AddgenePlasmid a owl:Class,
         linkml:ClassDefinition ;
-    rdfs:label "AddGenePlasmid" ;
+    rdfs:label "AddgenePlasmid" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:intersectionOf ( linkml:String [ a rdfs:Datatype ;
@@ -586,7 +586,7 @@ linkml_assembly_submission:description a owl:ObjectProperty,
     owl:someValuesFrom linkml_assembly_submission:Sequence .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf linkml_assembly_submission:AddGenePlasmid ;
+    rdfs:subClassOf linkml_assembly_submission:AddgenePlasmid ;
     owl:onProperty linkml_assembly_submission:type ;
-    owl:someValuesFrom linkml_assembly_submission:AddGenePlasmid .
+    owl:someValuesFrom linkml_assembly_submission:AddgenePlasmid .
 

@@ -17,7 +17,7 @@
 --     * Slot: description Description: A description of the object
 --     * Slot: type Description: The type of sequence
 --     * Slot: Submission_id Description: Autocreated FK slot
--- # Class: "AddGenePlasmid" Description: ""
+-- # Class: "AddgenePlasmid" Description: ""
 --     * Slot: addgene_id Description: The Addgene ID for the plasmid
 --     * Slot: resistance Description: 
 --     * Slot: well Description: The well where a plasmid is located in a plate
@@ -119,7 +119,7 @@ CREATE TABLE "Sequence" (
 	FOREIGN KEY(category) REFERENCES "Category" (id), 
 	FOREIGN KEY("Submission_id") REFERENCES "Submission" (id)
 );
-CREATE TABLE "AddGenePlasmid" (
+CREATE TABLE "AddgenePlasmid" (
 	addgene_id TEXT NOT NULL, 
 	resistance TEXT, 
 	well TEXT, 

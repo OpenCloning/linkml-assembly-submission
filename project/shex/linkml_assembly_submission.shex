@@ -51,13 +51,13 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
-<AddGenePlasmid> CLOSED {
-    (  $<AddGenePlasmid_tes> (  &<Sequence_tes> ;
+<AddgenePlasmid> CLOSED {
+    (  $<AddgenePlasmid_tes> (  &<Sequence_tes> ;
           rdf:type [ <Sequence> ] ? ;
           <resistance> @linkml:String ? ;
           <well> @linkml:String ?
        ) ;
-       rdf:type [ <AddGenePlasmid> ]
+       rdf:type [ <AddgenePlasmid> ]
     )
 }
 
@@ -117,7 +117,7 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <Sequence> ] ?
        )
-    } OR @<AddGenePlasmid> OR @<OligoPair>
+    } OR @<AddgenePlasmid> OR @<OligoPair>
 )
 
 <Submission> CLOSED {

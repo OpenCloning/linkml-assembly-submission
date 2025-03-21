@@ -89,7 +89,7 @@ class CategoryId(extended_str):
     pass
 
 
-class AddGenePlasmidAddgeneId(extended_str):
+class AddgenePlasmidAddgeneId(extended_str):
     pass
 
 
@@ -221,15 +221,15 @@ class Sequence(YAMLRoot):
 
 
 @dataclass
-class AddGenePlasmid(Sequence):
+class AddgenePlasmid(Sequence):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["AddGenePlasmid"]
-    class_class_curie: ClassVar[str] = "linkml_assembly_submission:AddGenePlasmid"
-    class_name: ClassVar[str] = "AddGenePlasmid"
-    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.AddGenePlasmid
+    class_class_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION["AddgenePlasmid"]
+    class_class_curie: ClassVar[str] = "linkml_assembly_submission:AddgenePlasmid"
+    class_name: ClassVar[str] = "AddgenePlasmid"
+    class_model_uri: ClassVar[URIRef] = LINKML_ASSEMBLY_SUBMISSION.AddgenePlasmid
 
-    addgene_id: Union[str, AddGenePlasmidAddgeneId] = None
+    addgene_id: Union[str, AddgenePlasmidAddgeneId] = None
     name: str = None
     category: Union[str, CategoryId] = None
     resistance: Optional[str] = None
@@ -239,8 +239,8 @@ class AddGenePlasmid(Sequence):
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.addgene_id):
             self.MissingRequiredField("addgene_id")
-        if not isinstance(self.addgene_id, AddGenePlasmidAddgeneId):
-            self.addgene_id = AddGenePlasmidAddgeneId(self.addgene_id)
+        if not isinstance(self.addgene_id, AddgenePlasmidAddgeneId):
+            self.addgene_id = AddgenePlasmidAddgeneId(self.addgene_id)
 
         if self.resistance is not None and not isinstance(self.resistance, str):
             self.resistance = str(self.resistance)

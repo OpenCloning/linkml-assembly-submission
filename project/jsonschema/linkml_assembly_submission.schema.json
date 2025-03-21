@@ -1,6 +1,6 @@
 {
     "$defs": {
-        "AddGenePlasmid": {
+        "AddgenePlasmid": {
             "additionalProperties": false,
             "description": "",
             "properties": {
@@ -26,7 +26,7 @@
                 "type": {
                     "description": "The type of sequence",
                     "enum": [
-                        "AddGenePlasmid"
+                        "AddgenePlasmid"
                     ],
                     "type": "string"
                 },
@@ -40,7 +40,7 @@
                 "name",
                 "category"
             ],
-            "title": "AddGenePlasmid",
+            "title": "AddgenePlasmid",
             "type": "object"
         },
         "Assembly": {
@@ -255,7 +255,7 @@
                                 "$ref": "#/$defs/Sequence"
                             },
                             {
-                                "$ref": "#/$defs/AddGenePlasmid"
+                                "$ref": "#/$defs/AddgenePlasmid"
                             },
                             {
                                 "$ref": "#/$defs/OligoPair"
@@ -341,7 +341,7 @@
                         "$ref": "#/$defs/Sequence"
                     },
                     {
-                        "$ref": "#/$defs/AddGenePlasmid"
+                        "$ref": "#/$defs/AddgenePlasmid"
                     },
                     {
                         "$ref": "#/$defs/OligoPair"

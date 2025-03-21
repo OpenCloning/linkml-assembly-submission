@@ -148,7 +148,7 @@ classes:
       - description
       - type
 
-  AddGenePlasmid:
+  AddgenePlasmid:
     is_a: Sequence
     slots:
       - addgene_id

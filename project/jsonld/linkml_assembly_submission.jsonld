@@ -437,7 +437,7 @@
         "Category",
         "Kit",
         "Sequence",
-        "AddGenePlasmid",
+        "AddgenePlasmid",
         "Assembly"
       ],
       "range": "string",
@@ -514,9 +514,9 @@
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/addgene_id",
       "identifier": true,
-      "owner": "AddGenePlasmid",
+      "owner": "AddgenePlasmid",
       "domain_of": [
-        "AddGenePlasmid"
+        "AddgenePlasmid"
       ],
       "range": "string",
       "required": true,
@@ -541,9 +541,9 @@
       "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/resistance",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/resistance",
-      "owner": "AddGenePlasmid",
+      "owner": "AddgenePlasmid",
       "domain_of": [
-        "AddGenePlasmid"
+        "AddgenePlasmid"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -554,9 +554,9 @@
       "description": "The well where a plasmid is located in a plate",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "slot_uri": "https://w3id.org/genestorian/linkml-assembly-submission/well",
-      "owner": "AddGenePlasmid",
+      "owner": "AddgenePlasmid",
       "domain_of": [
-        "AddGenePlasmid"
+        "AddgenePlasmid"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -936,8 +936,8 @@
       "@type": "ClassDefinition"
     },
     {
-      "name": "AddGenePlasmid",
-      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/AddGenePlasmid",
+      "name": "AddgenePlasmid",
+      "definition_uri": "https://w3id.org/genestorian/linkml-assembly-submission/AddgenePlasmid",
       "from_schema": "https://w3id.org/genestorian/linkml-assembly-submission",
       "is_a": "Sequence",
       "slots": [
@@ -950,7 +950,7 @@
         "description"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/AddGenePlasmid",
+      "class_uri": "https://w3id.org/genestorian/linkml-assembly-submission/AddgenePlasmid",
       "unique_keys": [
         {
           "unique_key_name": "addgene_id_key",

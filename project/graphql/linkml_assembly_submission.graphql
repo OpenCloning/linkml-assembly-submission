@@ -1,5 +1,5 @@
 # metamodel_version: 1.7.0
-type AddGenePlasmid
+type AddgenePlasmid
   {
     name: String!
     category: Category!
